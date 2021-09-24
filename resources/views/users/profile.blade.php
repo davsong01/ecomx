@@ -37,11 +37,11 @@
                                     <h4>Update Profile</h4>
                                     <fieldset class="form-group">
                                         <label for="username">Plan</label>
-                                        <input type="text" class="form-control" value="{{ auth()->user()->plan->title }}" disabled>
+                                        <input type="text" class="form-control" value="{{ isset(auth()->user()->plan) ? auth()->user()->plan->title : NULL }}" disabled>
                                     </fieldset>
                                     <fieldset class="form-group">
                                         <label>Referral bonus(&#8358;)</label>
-                                        <input type="text" class="form-control" value="{{ auth()->user()->referral_bonus }}" disabled>
+                                        <input type="text" class="form-control" value="{{ auth()->user()->wallet }}" disabled>
                                     </fieldset>
                                     <fieldset class="form-group">
                                         <label>Referral link</label>
@@ -78,7 +78,7 @@
                                     </fieldset>   
                                     <fieldset class="form-group">
                                         <label for="phone">Phone</label>
-                                        <input class="form-control" name="phone" id="phone" type="tel" placeholder="Enter your phone number,  e.g 07068590320" pattern="[0-9]{11}" value="{{ old('phone') ?? auth()->user()->phone  }}" required>
+                                        <input class="form-control" name="phone" id="phone" type="tel" placeholder="Enter your phone number,  e.g 07000000001" value="{{ old('phone') ?? auth()->user()->phone  }}" required>
                                         
                                     </fieldset>
                                     <h4>Bank details for referral bonus payouts</h4>

@@ -47,10 +47,17 @@
                                             @else N/A
                                             @endif
                                             <td style="padding-left: 5px;padding-right: 5px; ">
+                                                
                                                 <div class="button-group">
                                                     <a class="actions" href="{{ route('users.edit', $user->id) }}"> <i style="padding: 9px;
                                                         border: 1px solid;
                                                         border-radius: 4px !important;" class="bx bxs-edit"></i></
+                                                    </a>
+                                                </div>
+                                                <div class="button-group">
+                                                    <a class="actions" data-toggle="tooltip" data-placement="top" title="Switch To" href="{{ route('switchuser', $user->id) }}"> <i style="padding: 9px;
+                                                        border: 1px solid;
+                                                        border-radius: 4px !important;" class="fa fa-unlock"></i></
                                                     </a>
                                                 </div>
                                                 <div class="button-group">

@@ -17,11 +17,7 @@
 @section('inactive', 'Home')
 @section('active', 'Products')
 @section('main')
-    <!--Hero End -->
-    <!-- ================ contact section start ================= -->
-   
-
-    <!-- listing Area Start -->
+    
     <div class="listing-area pt-12 pb-12">
         <div class="container">
             <div class="row">
@@ -79,23 +75,7 @@
                                     </div>
                                 </div>
                                 @endforeach
-                              
-                                {{-- <div class="col-md-4 col-sm-6">
-                                    <div class="product-grid">
-                                        <div class="product-image">
-                                            <a href="#" class="image">
-                                                <img src="asset('images/img-2.jpg')">
-                                            </a>
-                                            <ul class="product-links">
-                                                <li><a href="#" data-tip="Add to Cart"><i class="fas fa-shopping-bag"></i></a></li>
-                                                <li><a href="#" data-tip="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
-                                                <li><a href="#" data-tip="Compare"><i class="fa fa-random"></i></a></li>
-                                            </ul>
-                                        </div>
-                                       
-                                    </div>
-                                </div> --}}
+                            
                             </div>
                         </div>
                     </div>

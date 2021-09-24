@@ -14,6 +14,7 @@ use App\Mail\ContactEmail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class DashboardController extends Controller
@@ -26,7 +27,7 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         
-        if(Auth::user()->level == 2){
+        if(Auth::user()->level == 2 || Auth::user()->level == 3 || Auth::user()->level == 4){
             $settings = Settings::first();
             $subscribers = User::whereLevel(1)->count();
             $paidSubscribers = User::whereLevel(1)->where('plan_id', '<>', NULL)->count();
@@ -38,24 +39,25 @@ class DashboardController extends Controller
 
          
         if(auth()->user()->level == 1){
+            if(auth()->user()->plan_id == null){
+                return redirect(url('/selectplans'));
+            }
             $categories = Category::withCount(['products' => function($query){
-                $query->where('status', 1);
+            $query->where('status', 1);
             }])->whereStatus(1)->get();
 
             $products = Product::with('category')->whereStatus(1)->simplePaginate(50);
 
-           foreach($products as $product){
+            foreach($products as $product){
                if($product->f_image !== null){
                     $product['main_image'] = json_decode($product->f_image, true)[0];
                }else{
                     $product['main_image'] = pulic_path().'/images/site/comming-soon.jpg';
-               }
-               
+            }    
            }
            
             return view('users.products', compact('categories', 'products'));
-        }elseif(auth()->user()->level == 2){
-            return view('admin.index');
+        
         }else return abort(404);
     }
 
@@ -110,19 +112,15 @@ class DashboardController extends Controller
                  $u['main_image'] = json_decode($u->f_images, true)[0];
             }
         }
+    
+        $approved = Carbon::parse(auth()->user()->salespage->whereUserId(auth()->user()->id)->first()->created_at ?? null);
+ 
+        $hasPreviouslyRequested = Carbon::now()->diffInDays($approved); 
 
-        //Check if this user has requested for salespage
-        if(auth()->user()->salespage){
-            $product['salespage'] = auth()->user()->salespage->whereProductId($product->id)->whereUserId(auth()->user()->id)->first();
-        }
-
-        $previously_approved = Salespage::whereUserId(auth()->user()->id)->where('created_at', '>=', Carbon::now()->subMonth())->first();
-
-        if($previously_approved != NULL && $previously_approved->count() > 0){
-            $product['remaining_to_request'] = $previously_approved->created_at->diffInDays(Carbon::now());
-        }
-
-        return view('users.singleproduct', compact( 'product', 'salespage_file', 'upsell_array', 'data_slide'));
+        $isProductHasSalesPage = empty($product->salespage_link)  && empty($product->salespage_file) ? 0 : 1;
+        $requestedForCurrentProduct = auth()->user()->salespage->whereProductId($product->id)->whereUserId(auth()->user()->id)->first();
+ 
+        return view('users.singleproduct', compact('hasPreviouslyRequested', 'isProductHasSalesPage', 'requestedForCurrentProduct', 'product', 'salespage_file', 'upsell_array', 'data_slide'));
     }
 
     public function singleCategory($slug){
@@ -202,7 +200,7 @@ class DashboardController extends Controller
         $data = $this->validate($request, [
             'name' => 'required',
             'email' => 'unique:users,email,'.auth()->user()->id,
-            'phone' => 'required|regex:/[0-9]{11}/',
+            'phone' => 'required|numeric',
             'password' => 'nullable|min:6',
             'bank_name' => 'nullable',
             'account_name' => 'nullable',

@@ -19,7 +19,8 @@
                                     <ul id="navigation">  
                                                                                                                                                                       
                                         <li><a href="/">Home</a></li>
-                                        <li><a href="#about">About</a></li>
+                                        <li><a href="{{ route('about') }}">About</a></li>
+                                        <li><a href="{{ route('faq') }}">FAQ</a></li>
                                         <li><a href="{{ route('contact') }}">Contact</a></li>
                                         <li><a href="https://blog.ecomx.com.ng">Blog</a></li>
                                         <li><a href="/forum">Forum</a></li>
@@ -27,6 +28,8 @@
                                         <li class="add-list"><a href="/login"><i class="fa fa-sign-in"></i>Sign in</a></li>
                                         <li class="add-list"><a href="/register"><i class="fa fa-sign-out"></i>Sign Up</a></li>
                                         @else
+                                        <li><a href="{{ route('user.resources') }}">Resources</a></li>
+
                                         <li class={{ Request::is('/dashboard') ? "active" : "" }}><a href="{{ route('dashboard') }}"><i class="fa fa-sign-in"></i>My Account</a>
                                             <ul class="submenu">
                                                 <li class="{{ Request::is('/dashboard') ? "active" : "" }}"><a href="{{ route('dashboard') }}">Dashboard</li></a>
@@ -36,6 +39,12 @@
                                                 <li class="{{ Request::is('/planinfo') ? "active" : "" }}"><a href="{{ route('plan.info', auth()->user()->id) }}">Plan Information</a></li>
                                             </ul>
                                         </li>
+                                        @if(Auth::user()->isSwitchingUser() )
+                                        <li class="sidebar-item hide-menu"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                            style="color:yellow !important; font-weight:bolder" href="{{ route('stop.switchuser') }}" aria-expanded="false"><i class="fa fa-arrow-left"></i><span
+                                                class="hide-menu">BACK TO ADMIN</span></a></li>
+                                        @endif
+                                      
                                         <li class="add-list"> <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
                                                 Sign out

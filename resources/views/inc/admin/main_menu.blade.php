@@ -10,11 +10,18 @@
         </div>
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
-            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">              
+            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines"> 
+                           
+                @if(Auth::user()->isSwitchingUser() )
+                <li class="sidebar-item hide-menu"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                    style="color:yellow !important; font-weight:bolder" href="{{ route('stop.switchuser') }}" aria-expanded="false"><i class="fa fa-arrow-left"></i><span
+                        class="hide-menu">BACK TO ADMIN</span></a></li>
+                @endif
+               
                 <li class="nav-item {{ Request::is('/dashboard') ? 'active' : '' }}"><a href="/dashboard"><i class="bx bxs-dashboard"></i><span class="menu-title">Dashboard</span></a>
                 </li>
-                <li class=" nav-item {{ Request::is('plans*') ? 'active' : '' }}"><a href="{{ route('plans.index') }}"><i class="bx bx-briefcase-alt-2"></i><span class="menu-title" data-i18n="User">Plans</span></a>
-                </li>
+                
+                @if(Auth::user()->level == 2 || Auth::user()->level == 4)
                 <li class=" nav-item {{ Request::is('categories*') ? 'active' : '' }}"><a href="{{ route('category.index') }}"><i class="bx bx-receipt"></i><span class="menu-title">Products Category</span></a>
                 </li>
                 <li class=" nav-item {{ Request::is('products*') ? 'active' : '' }}"><a href="{{ route('products.index') }}"><i class="fa fa-shopping-cart"></i><span class="menu-title">Products</span></a>
@@ -22,12 +29,22 @@
                 <li class=" nav-item {{ Request::is('upsells*') ? 'active' : '' }}"><a href="{{ route('upsells.index') }}"><i class="bx bx-package"></i><span class="menu-title">Upsells</span></a>
                 </li>
                 <li class=" nav-item {{ Request::is('suggestion*') ? 'active' : '' }}"><a href="{{ route('suggestion.index') }}"><i class="bx bxs-file"></i><span class="menu-title">Suggested Products</span></a>
+                <li class=" nav-item {{ Request::is('resource*') ? 'active' : '' }}"><a href="{{ route('resource.index') }}"><i class="fa fa-video-camera"></i><span class="menu-title">Resources</span></a>
                 </li>
+
+                @endif
+
+                @if(Auth::user()->level == 2 || Auth::user()->level == 3) 
                 <li class=" nav-item {{ Request::is('users*') ? 'active' : '' }}"><a href="{{ route('users.index') }}"><i class="bx bxs-user-pin"></i><span class="menu-title">Subscribers</span></a>
                 </li>
                 <li class=" nav-item {{ Request::is('ambassadors*') ? 'active' : '' }}"><a href="{{ route('ambassadors.index') }}"><i class="bx bxs-user"></i><span class="menu-title">Ambassadors</span></a>
                 </li>
                 <li class=" nav-item {{ Request::is('testimonials*') ? 'active' : '' }}"><a href="{{ route('testimonials.index') }}"><i class="fa fa-quote-left"></i><span class="menu-title">Testimonials</span></a>
+                </li>
+                @endif
+                @if(Auth::user()->level == 2)
+                
+                <li class=" nav-item {{ Request::is('plans*') ? 'active' : '' }}"><a href="{{ route('plans.index') }}"><i class="bx bx-briefcase-alt-2"></i><span class="menu-title" data-i18n="User">Plans</span></a>
                 </li>
 
                 <li class=" nav-item {{ Request::is('transactions*') ? 'active' : '' }}"><a href="{{ route('transactions.index') }}"><i class="bx bxs-wallet-alt"></i><span class="menu-title">Transactions</span></a>
@@ -37,9 +54,10 @@
                 </li>
                 <li class=" nav-item {{ Request::is('salespage*') ? 'active' : '' }}"><a href="{{ route('salespage') }}"><i class="fa fa-link"></i><span class="menu-title">Salespage Requests</span></a>
                 </li>
-
+                <li class=" nav-item {{ Request::is('staff*') ? 'active' : '' }}"><a href="{{ route('staff.index') }}"><i class="bx bxs-user"></i><span class="menu-title">Staff</span></a>
                 <li class=" nav-item {{ Request::is('settings*') ? 'active' : '' }}"><a href="{{ route('settings.index') }}"><i class="menu-livicon" data-icon="wrench"></i><span class="menu-title" data-i18n="Account Settings">Settings</span></a>
                 </li>
+                @endif
 
         </div>
     </div>

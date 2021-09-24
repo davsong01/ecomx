@@ -18,78 +18,92 @@
     </div>
 @endsection
 @section('main')
-   <!-- Categories Area Start -->
-    <div class="categories-area section-padding30" id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <!-- Section Tittle -->
-                    <div class="section-tittle text-center mb-80">
-                        <span style="margin-bottom: 0px !important;">About</span>
-                        <h2>Why {{ config('app.name') }}</h2>
-                    </div>  
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-cat text-center mb-50">
-                        <div class="">
-                            <span><img class="about" src="{{ asset('images/site/free.png') }}" alt=""></span>
-                        </div>
-                        <div class="cat-cap">
-                            <h5><a href="">No Product cost</a></h5>
-                            <p>Zero Product Cost Up-front <br><br></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-cat text-center mb-50">
-                        <div>
-                            <span><img class="about" src="{{ asset('images/site/shipping.png') }}" alt=""></span>
-                        </div>
-                        <div class="cat-cap">
-                            <h5><a href="">No import costs</a></h5>
-                            <p>No More Paying for Expensive Shipping Fee from China </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-cat text-center mb-50">
-                        <div>
-                            <span><img class="about" src="{{ asset('images/site/copy.png') }}" alt=""></span>
-                        </div>
-                        <div class="cat-cap">
-                            <h5><a href="">Pre configured salespage</a></h5>
-                            <p>Sales Copy Done For You </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-cat text-center mb-50">
-                        <div class="">
-                            <span><img class="about" src="{{ asset('images/site/advert.png') }}" alt=""></span>
-                        </div>
-                        <div class="cat-cap">
-                            <h5><a>Advanced advert info</a></h5>
-                            <p>Facebook Creatives & Target Audience Done For You</p>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-cat text-center mb-50">
-                        <div class="cat-icon">
-                            <span class="flaticon-food"></span>
-                        </div>
-                        <div class="cat-cap">
-                            <h5><a href="catagori.html">Access up-sell products</a></h5>
-                            <p>Up-sell product suggestions and make more money </p>
-                        </div>
-                    </div>
-                </div> --}}
+<div class="categories-area section-padding30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Section Tittle -->
+                <div class="section-tittle text-center mb-80">
+                    <span style="margin-bottom: 0px !important;">Overview</span>
+                    <h2>What is eComX?</h2>
+                </div>  
             </div>
         </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <iframe width="100%" height="460" src="https://www.youtube-nocookie.com/embed/ZHPTkMHM5bk?controls=0?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
+            </div>
+           
+        </div>
+        <div class="row justify-content-center">
+            <div class="room-btn pt-20">
+                <a href="https://youtube.com/playlist?list=PLyQJmMWtIpCBoEgf9qodgkITU4U7dwWdn" class="btn view-btn1" target="_blank">Check out more eComX videos</a>
+            </div>
+        </div>
+        
     </div>
+</div>
+<!-- Categories Area Start -->
+<div class="categories-area section-padding30" id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Section Tittle -->
+                <div class="section-tittle text-center mb-80">
+                    <span style="margin-bottom: 0px !important;">About</span>
+                    <h2>Why {{ config('app.name') }}</h2>
+                </div>  
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-cat text-center mb-50">
+                    <div class="">
+                        <span><img class="about" src="{{ asset('images/site/free.png') }}" alt=""></span>
+                    </div>
+                    <div class="cat-cap">
+                        <h5><a href="">No Product cost</a></h5>
+                        <p>Zero Product Cost Up-front <br><br></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-cat text-center mb-50">
+                    <div>
+                        <span><img class="about" src="{{ asset('images/site/shipping.png') }}" alt=""></span>
+                    </div>
+                    <div class="cat-cap">
+                        <h5><a href="">No import costs</a></h5>
+                        <p>No More Paying for Expensive Shipping Fee from China </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-cat text-center mb-50">
+                    <div>
+                        <span><img class="about" src="{{ asset('images/site/copy.png') }}" alt=""></span>
+                    </div>
+                    <div class="cat-cap">
+                        <h5><a href="">Pre configured salespage</a></h5>
+                        <p>Sales Copy Done For You </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-cat text-center mb-50">
+                    <div class="">
+                        <span><img class="about" src="{{ asset('images/site/advert.png') }}" alt=""></span>
+                    </div>
+                    <div class="cat-cap">
+                        <h5><a>Advanced advert info</a></h5>
+                        <p>Facebook Creatives & Target Audience Done For You</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 <!-- Categories Area End -->
 <div class="peoples-visit dining-padding-top">
     <!-- Single Left img -->
@@ -125,7 +139,9 @@
                 <!-- Section Tittle -->
                 <div class="section-tittle text-center mb-80">
                     <span>Categories</span>
-                    <p>Get Access to Unique Products in Various Niches That Sell Out in No Time</p>
+                    <div class="visit-caption">
+                        <p class="normalize" style="text-align: center; important">Get Access to Unique Products in Various Niches That Sell Out in No Time</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -155,7 +171,7 @@
 
 <!-- Popular Locations End -->
 <!-- Services Area Start -->
-<div class="services-area pt-150 pb-150 section-bg" data-background="{{ asset('images/gallery/easytoexplore.jpg') }}">
+<div class="services-area pt-150 pb-150 section-bg" data-background="{{ asset('images/gallery/EASYTOEXPLORE-1.png') }}">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -228,25 +244,13 @@
                 <!-- Section Tittle -->
                 <div class="section-tittle text-center">
                     <span>Flexible Plans</span>
+                    <div class="visit-caption">
+                        <p class="normalize" style="text-align:center !important">Your journey to earning 6 - 7 figures weekly begins by subscribing to any of the plans below. Choose the plan that best suit you. </p>
+                    </div>
                 </div> 
             </div>
         </div>
-        <div class="row align-items-center">
-            <div class="col-lg-11 col-md-11">
-                <div class="h1-testimonial-active">
-                    <!-- Single Testimonial -->
-                    <div class="single-testimonial text-center">
-                        <!-- Testimonial Content -->
-                        <div class="testimonial-caption ">
-                            <div class="testimonial-top-cap">
-                                <p>Your journey to earning 6 - 7 figures weekly begins by subscribing to any of the plans below. Choose the plan that best suit you. </p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
+       
         <div class="row">
             <!-- Section Tittle -->
             @foreach($plans as $plan)
@@ -277,6 +281,7 @@
         </div>
     </div>
 </div>
+@if(count($testimonials) > 0)
 <div class="testimonial-area testimonial-padding" style="background: #06a4ad;">
     <div class="container">
         <div class="row">
@@ -317,6 +322,8 @@
         </div>
     </div>
 </div>
+@endif
+@if(count($ambassadors) > 0)
 <div class="popular-location">
     <div class="container">
         <div class="row">
@@ -350,18 +357,6 @@
         </div>
         
 </div>
-<div class="popular-location">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <!-- Section Tittle -->
-                <div class="section-tittle text-center mb-80">
-                    <span>From our Blog</span>
-                    <p></p>
-                </div>
-            </div>
-        </div>
-        
-</div>
+@endif
 </div>
 @endsection

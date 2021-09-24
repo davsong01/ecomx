@@ -29,6 +29,7 @@ class PaymentController extends Controller
 
 	public function redirectToGateway(Request $request)
 	{
+		
 		$data = $this->validate($request, [
 			'orderID' => 'required|numeric',
   			'email' => 'required',

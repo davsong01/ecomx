@@ -1,5 +1,16 @@
 @import url("https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,500,600,700|Sacramento|Sulphur+Point:400,700&display=swap");
 /* Upsells Grid */
+
+.btn.view-btn1 {
+    background: #06a4ad;
+    color: white;
+}
+
+.normalize{
+    color:black;
+    font-size:16px;
+    text-align: justify;
+}
 .panel p{
     font-weight: normal;
     font-family: helvetica;
@@ -3585,6 +3596,7 @@ hr {
 
 .popular-location .single-location .location-img img {
     width: 100%;
+    height:350px
     transform: scale(1);
     transition: all .5s ease-out 0s
 }
@@ -4136,7 +4148,8 @@ hr {
     line-height: 1.5;
     padding-right: 100px;
     margin-bottom: 50px;
-    font-size: 20px
+    font-size: 20px;
+    color:white
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {

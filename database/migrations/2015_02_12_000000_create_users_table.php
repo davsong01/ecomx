@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->string('username')->unique();
             $table->string('password');
-            $table->integer('level')->default(0);
+            $table->integer('level')->default(1); //Admin:2; Usermanager: 3; Product Manager: 4
             $table->float('referral_bonus')->default(0.0);
             $table->string('my_upline')->nullable();
             

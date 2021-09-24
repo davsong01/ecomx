@@ -22,6 +22,12 @@ class hasPlan
             return redirect(url('/selectplans'));
         }
 
+        if (auth()->user()->plan_id != NULL && auth()->user()->level == 1 && (auth()->user()->plan_expiry < now())) {
+            $title = 'Purchase plan';
+            
+            return redirect(route('plan.upgrade', auth()->user()->plan_id));
+        }
+
         return $next($request);
     }
 }

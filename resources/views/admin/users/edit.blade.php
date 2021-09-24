@@ -33,7 +33,7 @@
                                 </fieldset>
                                 <fieldset class="form-group">
                                     <label for="phone">Phone Number</label>
-                                    <input class="form-control" name="phone" id="phone" type="tel" placeholder="Enter phone number, e.g 07068590320" pattern="[0-9]{11}" value="{{ old('phone') ?? $user->phone  }}" required>
+                                    <input class="form-control" name="phone" id="phone" type="tel" placeholder="Enter phone number, e.g 07000000001" pattern="[0-9]{11}" value="{{ old('phone') ?? $user->phone  }}" required>
                                    
                                 </fieldset>
                                 <fieldset class="form-group">
@@ -55,9 +55,16 @@
                                 <fieldset class="form-group">
                                     <label for="upline">Upline(Optional)</label>
                                     <select class="form-control" name="MY_upline" id="MY_upline" >
+                                        @if($user->upline)
                                         @foreach($users as $upline)
                                         <option value="{{ $upline->id }}" {{ $user->upline->id == $upline->id ? 'selected' : ''}}>{{ $upline->name }}</option>
                                         @endforeach
+                                        @else
+                                        <option value="">-- Select Option --</option>
+                                        @foreach($users as $upline)
+                                        <option value="{{ $upline->id }}" {{ old('MY_upline') == $upline->id ? 'selected' : ''}}>{{ $upline->name }}</option>
+                                        @endforeach
+                                        @endif
                                     </select>
                                 </fieldset>
                                 <fieldset class="form-group">

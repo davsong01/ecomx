@@ -62,11 +62,11 @@
 
                                 <fieldset class="form-group">
                                     <label for="title">Sales Page Link</label>
-                                    <input type="url" class="form-control" id="salespage_link" name="salespage_link" value="{{ old('salespage_link') }}" placeholder="Enter product salespage link" required>
+                                    <input type="url" class="form-control" id="salespage_link" name="salespage_link" value="{{ old('salespage_link') }}" placeholder="Enter product salespage link">
                                 </fieldset>
                                 <fieldset class="form-group">
                                     <label for="salespage_file">Sales Page File (Not more than 1mb )</label>
-                                    <input type="file" class="form-control" id="salespage_file" name="salespage_file" value="{{ old('salespage_file') }}"  required>
+                                    <input type="file" class="form-control" id="salespage_file" name="salespage_file" value="{{ old('salespage_file') }}" >
                                 </fieldset>
                                 <fieldset class="form-group">
                                     <label for="status">Upsells (Optional)</label>

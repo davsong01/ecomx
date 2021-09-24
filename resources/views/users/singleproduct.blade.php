@@ -75,7 +75,7 @@
                     <li>
                         <a href="#"><i class="fa fa-list-alt"></i>
                         @foreach($product->category as $category)
-                        <a href="{{ route('showcategory', $category->slug) }}">{{ $category->title }} </a>
+                        <a href="{{ route('category.filter', $category->slug) }}">{{ $category->title }} </a>
                         @endforeach
                         </a>
                     </li>
@@ -109,20 +109,7 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
         </div>
-        {{-- <div class="row">
-            <div class="site-section mb-5">
-                <div class="owl-2-style">
-                  <div class="owl-carousel owl-2">
-                    @foreach(json_decode($product->f_image) as $image)  
-                    <div>
-                      <img src="{{route('get.file', $image) }}" alt="{!! $image !!}" style="max-height:100%; max-width:100%;">
-                    </div>
-                    @endforeach
-                    
-                  </div>
-                </div>
-              </div>
-        </div> --}}
+        
         @if(isset($product->videos) && $product->videos != 'null')
         <div class="row">
             <!-- Right content -->
@@ -146,61 +133,61 @@
         </div>
 
         <div class="row">
-            @if($salespage_file)
+            @if($isProductHasSalesPage > 0)
                 <button class="accordion">Salespage</button>
+               
                 <div class="panel ck-content">
                     @if(auth()->user()->plan->viewCreatives == 1)
-                    <p class="details">
-                        SalesPage Link: <a target="_blank" href="{{ $product->salespage_link }}"> <i class="fa fa-link"></i> Visit link</a> <br>
-                        <div class="count mb-10">
-                            @if($product->salespage == NULL)
-                            @if($product->remaining_to_request < 1 )
-                            <span>
-                                <form action="{{ route('salespages.submit')}}" method="POST" onsubmit="return confirm('You are about to request for salespage for: {{ $product->title }}');">
-                                    @csrf
-                                    <input type="hidden" value="{{ $product->id }}" name="pid">
-                                    <button class="btn view-btn1" style="background: #06a4ad; color: white;">Request this product's salespage </button>
-                                </form>
-                            </span>
-                            @else
-                            <span>
-                                <button class="btn view-btn1" style="background: #06a4ad; color: white;" onclick="alert('You cannot request for a salespage now, you have untill {{ $product->remaining_to_request }} day(s) to make another request');">Request this product's salespage</button>
-                                </form>
-                            </span>
-                            @endif
-                            @endif
-                            @if($product->salespage != NULL && $product->salespage->status == 0)
-                            <div class="col-12">
-                                <p class="view-btn1" style="padding: 20px;
-                                text-align: center;background: #06a4ad; color: white;" disabed>Product's salespage requested, awaiting approval</p>
-                            </div>
-                            @endif
-                            @if($product->salespage && $product->salespage->status == 1)
-                        
-                                SalesPage demo: <a class="btn view-btn1" style="background: #06a4ad; color: white;" href="{{ route('downloadsalespagefile', $salespage_file) }}"> <i class="fa fa-download"></i> Download file</a><br><br>
+                        <p class="details">
+                            <div class="count mb-10">
+                                @if($hasPreviouslyRequested >= 31)
+                                    @if(!is_null($requestedForCurrentProduct) && $requestedForCurrentProduct->status == 0)
+                                        <div class="col-12">
+                                            <p class="view-btn1" style="padding: 20px;
+                                            text-align: center;background: #06a4ad; color: white;" disabed>Product's salespage requested, awaiting approval</p>
+                                        </div>
+                                    @endif
+                                    @if(!is_null($requestedForCurrentProduct) && $requestedForCurrentProduct->status == 1)
+                                        SalesPage demo: <a class="btn view-btn1" style="background: #06a4ad; color: white;" href="{{ route('downloadsalespagefile', $salespage_file) }}"> <i class="fa fa-download"></i> Download file</a><br><br>
+                                    @endif
+                                    
+                                    @if(is_null($requestedForCurrentProduct))
+                                    <span>
+                                        <form action="{{ route('salespages.submit')}}" method="POST" onsubmit="return confirm('You are about to request for salespage for: {{ $product->title }}');">
+                                            @csrf
+                                            <input type="hidden" value="{{ $product->id }}" name="pid">
+                                            <button class="btn view-btn1" style="background: #06a4ad; color: white;">Request this product's salespage </button>
+                                        </form>
+                                    </span>
+                                    @endif
+
+                                @else
+                                <span>
+                                    <button class="btn view-btn1" style="background: #06a4ad; color: white;" onclick="alert('You can only make 1 salespage request per month, contact us if you need more');">Request this product's salespage</button>
+                                    </form>
+                                </span>
+                                @endif
+                              
+                            </div> 
+                            Watch how to Create your own Salespage below 
                             
-                            @endif
-                        
-                        </div> 
-                        Watch how to Create your own Salespage below 
-                        
-                </p>
-                <div class="col-12" style="margin-top:10px;">
-                    {!! \App\Settings::select('salespage_howto')->value('salespage_howto') !!}
-                </div>
-                        
+                        </p>
+                        <div class="col-12" style="margin-top:10px;">
+                            {!! \App\Settings::select('salespage_howto')->value('salespage_howto') !!}
+                        </div>  
                     @else
-                    <p class="details" style="width: 100%;"><h5 style="color:red">Sorry!!!</h5> You cannot view Salespage link nor download the salespage demo except you upgrade your plan! <br><br>
-                        <a style="background: #06a4ad !important;
-                        border-radius: 30px;
-                        padding: 10px 20px !important;
-                        color:white;
-                        margin: 0 11px;" href="{{ route('plan.upgrade', auth()->user()->plan->id) }}"><strong>Upgrade plan now</a> 
-                    </p>
+                        <p class="details" style="width: 100%;"><h5 style="color:red">Sorry!!!</h5> You cannot view Salespage link nor download the salespage demo except you upgrade your plan! <br><br>
+                            <a style="background: #06a4ad !important;
+                            border-radius: 30px;
+                            padding: 10px 20px !important;
+                            color:white;
+                            margin: 0 11px;" href="{{ route('plan.upgrade', auth()->user()->plan->id) }}"><strong>Upgrade plan now</a> 
+                        </p>
                     @endif
                 </div>
             @endif
-            <button class="accordion">Facebook Ads creative</button>
+
+            <button class="accordion">Facebook Ads creative </button>
             <div class="panel">
                 @if(auth()->user()->plan->viewCreatives == 1)
                 <p class="details">
@@ -249,7 +236,7 @@
                     </div>
                     <div class="row">
                         Watch how to Create your own Upsell Product 
-                 
+                        
                         {!! \App\Settings::select('upsell_howto')->value('upsell_howto') !!}
                     </div>
                     
@@ -280,7 +267,7 @@
                 });
                 }
             </script>
-            {{-- </div>   --}}
+           
         </div>
 
     </div>

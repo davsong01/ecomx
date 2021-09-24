@@ -53,11 +53,10 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
             'f_images.*' => 'nullable|max:3024|mimes:jpg,jpeg,png,bmp',
-            // 'videos.*' => 'nullable|max:120000|mimes:mp4,3gp,avi,wmv,webm',
             'videos' => 'nullable',
             'creatives' => 'required',
             'description' => 'required',
-            'salespage_link' => 'required|url',
+            'salespage_link' => 'nullable|url',
             'upsell' => 'nullable',
             'category' => 'required',
             'status' => 'required|numeric',
@@ -87,18 +86,6 @@ class ProductController extends Controller
                 array_push($images, $filename.'.'.$extension );
             }
         }else $images = NULL;
-
-        //handle videos
-        // if($request->has('videos')){
-        //     $videos = array();
-        //     //Store videos
-        //     foreach($request->videos as $file){
-        //         $filename = date('d-M-Y-s') . '-'. pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-        //         $extension = $file->getClientOriginalExtension();
-        //         Storage::disk('uploads')->putFileAs('products', new File($file->path()), $filename.'.'.$extension);
-        //         array_push($videos, $filename.'.'.$extension );
-        //     }
-        // }else $videos = NULL;
 
         //Handle Upsells
         if($request->has('upsell')){
@@ -136,20 +123,28 @@ class ProductController extends Controller
         
         
         if($product->status == 1){
-            
-            //Send mail to all subscribers here
+            //Send mail to all subscribers
             $subscribers = User::whereLevel(1)->get();
-
-            foreach($subscribers as $subscriber){
-               
-                $d['name'] = $subscriber->name;
-                $d['type'] = 'newproduct';
-                // dd($product, $d);
-                Mail::to($subscriber->email)->send(new NewProductMail($d));
-            }
+            $this->sendNewProductEmail($subscribers);
         }
              
         return redirect(route('products.index'))->with('message', 'Product successfully added');
+    }
+
+    public function resendEmail($id){
+            $subscribers = User::whereLevel(1)->get();
+            $this->sendNewProductEmail($subscribers);
+
+            return back()->with('message', 'Email sent');
+    }
+
+    private function sendNewProductEmail($subscribers){
+        foreach($subscribers as $subscriber){
+               
+            $d['name'] = $subscriber->name;
+            $d['type'] = 'newproduct';
+            Mail::to($subscriber->email)->send(new NewProductMail($d));
+        }
     }
 
     public function show(Product $product)
@@ -205,22 +200,7 @@ class ProductController extends Controller
         }else $salespage_file = NULL;
 
         $product->salespage_file = $salespage_file;
-        //handle additional videos
-        // if($request->has('videos')){
-        //     $videos = json_decode($product->videos);
-        //     if($videos ==  null){
-        //         $videos = array();
-        //     }
-        //     //Store videos
-        //     foreach($request->videos as $file){
-        //         $filename = date('d-M-Y-s') . '-'. pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-        //         $extension = $file->getClientOriginalExtension();
-        //         Storage::disk('uploads')->putFileAs('products', new File($file->path()), $filename.'.'.$extension);
-        //         array_push($videos, $filename.'.'.$extension );
-        //     }
-
-        //     $product->videos = json_encode($videos);
-        // }
+       
         
         //sync categories
         if($request->has('category')){

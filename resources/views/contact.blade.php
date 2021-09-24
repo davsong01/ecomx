@@ -65,7 +65,7 @@
                     <div class="media contact-info">
                         <span class="contact-info__icon"><i class="ti-tablet"></i></span>
                         <div class="media-body">
-                            <h3>+234 70 6859 320</h3>
+                            <h3>08086607905, 08080889261</h3>
                             <p>Mon to Fri 9am to 5pm</p>
                         </div>
                     </div>

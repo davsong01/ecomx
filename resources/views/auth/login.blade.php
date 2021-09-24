@@ -40,9 +40,12 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <input class="form-control" name="password" id="password" type="password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your password'" placeholder="Password" value="{{ old('password')  }}" required>
-                                    <p onclick="oldFunction()" style="margin-top: 10px;">
-                                        <input type="checkbox" id="check" > &nbsp show password
+                                    <p class="normalize" onclick="oldFunction()" style="margin-top: 10px;">
+                                        <input type="checkbox" id="check" > &nbspShow password
 
+                                    </p>
+                                    <p class="normalize" style="margin-top: 10px;">
+                                       <a href="password/reset">Forgot password?</a> 
                                     </p>
                                     <script>
                                         function oldFunction() {
@@ -68,7 +71,7 @@
                             <button type="submit" class="button button-contactForm boxed-btn">Login</button>
                         </div>
                     </form>
-                    <p>Don't have an account? <a href="/register" style="color: #3c14ff;">Sign Up here</a></p>
+                    <p class="normalize">Don't have an account? <a href="/register" style="color: #3c14ff;">Sign Up here</a></p>
                 </div>
                 
             </div>

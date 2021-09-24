@@ -75,7 +75,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <input class="form-control" name="phone" id="phone" type="tel" placeholder="Enter your phone number, e.g 07068590320" pattern="[0-9]{11}" value="{{ old('phone') }}" required>
+                                    <input class="form-control" name="phone" id="phone" type="tel" placeholder="Enter your phone number, e.g 07000000001" value="{{ old('phone') }}" required>
                                 </div>
                             </div>
                         </div>
@@ -101,7 +101,7 @@
                                 } 
                             </script>
                             <input type="checkbox" id="agree" name="agree" required>
-                            <label><small style="margin-bottom: 0px; margin-bottom: 0px;">I have read and agree to the </small><a href="{{ route('tac') }}"  target="_blank" style="color:green"><u>terms and conditions</u> </a></label><br>
+                            <label><small style="margin-bottom: 0px; margin-bottom: 0px;">I have read and agree to the </small><a href="#"  target="_blank" style="color:green"><u>terms and conditions</u> </a></label><br>
                            
                            </div>
                         

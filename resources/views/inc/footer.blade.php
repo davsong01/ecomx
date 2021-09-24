@@ -24,6 +24,7 @@
                                     <li><a href="#about">About</a></li>
                                     <li><a href="/contact">Contact</a></li>
                                     <li><a href="/tac">Terms</a></li>
+                                    <li><a href="/faq">FAQ</a></li>
                                     <li><a href="/privacy">Privacy Policy</a></li>
                                     <li><a href="/register">Earn as Affiliate</a></li>
                                     
@@ -82,9 +83,9 @@
                     <div class="col-xl-3 col-lg-4">
                         <!-- Footer Social -->
                         <div class="footer-social f-right">
-                            <a href="https://www.facebook.com/ecomxglobal"><i class="fab fa-facebook-f"></i></a>
-                            <a href="https://www.twitter/ecomxglobal"><i class="fab fa-twitter"></i></a>
-                            <a href="https://www.instagram.com/ecomxglobal"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.facebook.com/ecomxglobal" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.twitter.com/ecomxglobal" target="_blank"><i class="fab fa-twitter"></i></a>
+                            <a href="https://www.instagram.com/ecomxglobal" target="_blank"><i class="fab fa-instagram"></i></a>
                         </div>
                     </div>
                 </div>

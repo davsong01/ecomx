@@ -26,7 +26,7 @@
                                             <th>Price</th>
                                             <th>In Stock</th>
                                             <th>Category(s)</th>
-                                            <th>No of Upsells</th>
+                                            <th>No of products</th>
                                             <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
@@ -43,12 +43,12 @@
                                                 <?php echo e($category->title); ?> | <br>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </td>
-                                            <td><?php echo e($product->upsell_products_count); ?></td>
+                                            <td><?php echo e($product->product_products_count); ?></td>
                                             <td><?php echo e(($product->status == 1) ? 'Published' : 'Draft'); ?></td>
                                             
                                             <td style="padding-left: 5px;padding-right: 5px; ">
                                                 <div class="button-group">
-                                                    <a class="actions" data-toggle="tooltip" title="View/Edit upsell" href="<?php echo e(route('products.edit', $product->id)); ?>"> <i style="padding: 9px;
+                                                    <a class="actions" data-toggle="tooltip" title="View/Edit product" href="<?php echo e(route('products.edit', $product->id)); ?>"> <i style="padding: 9px;
                                                         border: 1px solid;
                                                         border-radius: 4px !important;" class="bx bxs-edit"></i></
                                                     </a>
@@ -59,6 +59,12 @@
                                                         <?php echo method_field('DELETE'); ?> 
                                                         <button class="form-control deletebutton" type="submit"><i class="fa fa-trash" style="color: #950026;"></i></button>
                                                     </form>  
+                                                </div>
+                                                <div class="button-group">
+                                                    <a class="actions" data-toggle="tooltip" title="Resend product email" href="<?php echo e(route('products.resend', $product->id)); ?>"> <i style="padding: 9px;
+                                                        border: 1px solid;
+                                                        border-radius: 4px !important;" class="ficon bx bx-envelope"></i></
+                                                    </a>
                                                 </div>
                                             </td>
 

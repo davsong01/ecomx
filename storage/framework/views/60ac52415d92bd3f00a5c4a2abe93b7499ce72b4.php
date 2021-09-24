@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <meta name="description" content="<?php echo $__env->yieldContent('description'); ?>">
     <meta name="keywords" content="">
-    <meta name="author" content="PIXINVENT">
-    <title><?php echo $__env->yieldContent('title'); ?></title>
+    <title><?php echo $__env->yieldContent('title', 'Nigeria’s first full blown drop-ship/Mini eCom platform and more'); ?></title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <link rel="apple-touch-icon" href="<?php echo e(asset( \App\Settings::select('favicon')->first()->value('favicon'))); ?>">
     <link rel="shortcut icon" type="image/x-icon" href="<?php echo e(asset( \App\Settings::select('favicon')->first()->value('favicon'))); ?>">
@@ -52,7 +51,9 @@
     <link rel="stylesheet" type="text/css" href="<?php echo e(asset('assets/css/style.css')); ?>">
 
     <style>
-
+    .edit-link iframe {
+        max-width: 470px;
+    }
  
     .vertical-alignment-helper {
     display:table;

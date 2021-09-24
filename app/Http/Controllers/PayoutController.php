@@ -126,6 +126,7 @@ class PayoutController extends Controller
 
         if(auth()->user()->level == 2){
             $payout->delete();
+            return redirect(route('payouts.index'))->with('message', 'Delete successful');
         }
 
         if(auth()->user()->level == 1 && $payout->user_id == auth()->user()->id){
@@ -134,8 +135,10 @@ class PayoutController extends Controller
             }
 
             $payout->delete();
+            return redirect(route('withdrawals'))->with('message', 'Delete successful');
+        }
 
-        return redirect(route('withdrawals'))->with('message', 'Delete successful');
-        }return abort(404);  
+        
+        
     }
 }

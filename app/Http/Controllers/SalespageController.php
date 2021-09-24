@@ -91,7 +91,7 @@ class SalespageController extends Controller
             $previously_approved = Salespage::whereUserId(auth()->user()->id)->where('created_at', '>=', Carbon::now()->subMonth())->first();
 
             if($previously_approved != NULL && $previously_approved->count() > 0){
-                return back()->with('error', 'You can only request for one salespage per month');
+                return back()->with('error', 'You can only request for one salespage per month, You can only make 1 salespage request per month, contact us to request more sales page.');
             }
 
             $salespage = Salespage::create([

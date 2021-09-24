@@ -44,7 +44,8 @@ class CategoryController extends Controller
 
         //save image
         $imgName = $request->image->getClientOriginalName();
-        $image = Image::make($request->image)->save(public_path().'/images/categories/'.$imgName);
+        // $image = Image::make()->save(public_path().'/images/categories/'.$imgName);
+        $image = Image::make($request->image)->resize(360, 286)->save(public_path().'/images/categories/'.$imgName);
 
         $category = Category::create([
             'title' => $request->title,
@@ -99,7 +100,8 @@ class CategoryController extends Controller
             
             //save new image
             $imgName = $request->image->getClientOriginalName();
-            $image = Image::make($request->image)->save(public_path().'/images/categories/'.$imgName);
+            $image = Image::make($request->image)->resize(360, 286)->save(public_path().'/images/categories/'.$imgName);
+            // $image = Image::make($request->image)->save(public_path().'/images/categories/'.$imgName);
 
             $imagePath  =  'images/categories/'.$imgName;
         }else{

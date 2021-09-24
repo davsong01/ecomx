@@ -28,9 +28,13 @@ Route::get('/stop', function () {
     echo "<p>Queue Stopped</p>";
 });
 
-
 Route::get('/', 'HomeController@index')->name('index');
 Route::get('/contact', 'HomeController@contact')->name('contact');
+Route::get('/about', 'HomeController@about')->name('about');
+Route::get('/faq', 'HomeController@faq')->name('faq');
+
+Route::get('/resources', 'ResourceController@getResources')->name('user.resources');
+
 Route::get('productimages/{filename}', function ($filename) {
     $realpath = base_path() . '/uploads/products'. '/' .$filename;
     return response()->download($realpath);
@@ -51,8 +55,9 @@ Route::get('/tac', function () {
 // Route::middleware(['verified', 'auth', 'SwitchUser'])->group(function(){
 
 //Select plan route
-Route::middleware(['auth'])->group(function(){ 
-    Route::get('/selectplans', 'DashboardController@selectPlans')->name('selectplans')->middleware('auth');
+Route::middleware(['auth', 'SwitchUser'])->group(function(){ 
+    Route::get('/selectplans', 'DashboardController@selectPlans')->name('selectplans');
+    Route::get('upgradeplan/{old_plan}', 'DashboardController@upgradePlan')->name('plan.upgrade');
     Route::post('/checkout', 'DashboardController@checkout')->name('checkout');
     Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay');
     Route::get('/payment/callback', 'PaymentController@handleGatewayCallback');
@@ -70,9 +75,10 @@ Route::middleware(['auth'])->group(function(){
         
 });
 //Auth Users route
-Route::middleware(['auth', 'hasPlan'])->group(function(){ 
+Route::middleware(['auth', 'hasPlan', 'SwitchUser'])->group(function(){ 
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
     Route::get('/products/single/{slug}', 'DashboardController@singleProduct')->name('product.single');
+    
     Route::get('category/filter/{slug}', 'DashboardController@categoryFilter')->name('category.filter');
     Route::get('postfile/{filename}', 'ProductController@getfile')->name('get.file');
     Route::get('categoryfile/{filename}', 'CategoryController@getfile')->name('get.categoryfile');
@@ -80,26 +86,29 @@ Route::middleware(['auth', 'hasPlan'])->group(function(){
     Route::get('singleupsell/{slug}', 'DashboardController@singleUpsell')->name('single.upsell');
     Route::get('salespagefile/{filename}', 'ProductController@getsalespagefile')->name('get.salespagefile');
     Route::get('downloadsalespagefile/{filename}', 'DashboardController@downloadsalespagefile')->name('downloadsalespagefile');
-    Route::get('upgradeplan/{old_plan}', 'DashboardController@upgradePlan')->name('plan.upgrade');
+    
     Route::get('planinfo', 'DashboardController@PlanInfo')->name('plan.info');
     Route::PATCH('saveprofile', 'DashboardController@saveProfile')->name('save_profile'); 
     Route::POST('suggestion', 'SuggestionController@store')->name('suggestion.store');
-    
+   
    
    });
 
 //Admin  route
-Route::middleware(['auth', 'isAdmin'])->group(function(){ 
+Route::middleware(['auth', 'isAdmin', 'SwitchUser'])->group(function(){ 
     Route::resource('plans', 'PlanController');
     Route::resource('category', 'CategoryController');
     Route::resource('products', 'ProductController');
     Route::post('productfilereplace', 'ProductController@replaceProductFile')->name('productfile.replace');
+    Route::get('/resendproductemail/{id}', 'ProductController@resendEmail')->name('products.resend');
+ 
     Route::post('productfiledelete', 'ProductController@deleteProductFile')->name('productfile.delete');
     Route::post('upsellfiledelete', 'UpsellController@deleteUpsellFile')->name('upsellfile.delete');
     
     Route::resource('upsells', 'UpsellController');
     Route::post('postfilereplace', 'UpsellController@replaceUpsellFile')->name('upsellfile.replace');
     Route::resource('users', 'UserController');
+    Route::resource('staff', 'StaffController');
     Route::resource('transactions', 'TransactionController');
     Route::resource('payouts', 'PayoutController');
     // Route::get('allsalespage', 'SalespageController@approve')->name('salespage.index');
@@ -115,6 +124,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function(){
     Route::get('suggestionfile/{filename}', 'SuggestionController@getfile')->name('suggestion.file');
     Route::resource('ambassadors', 'AmbassadorController');
     Route::resource('testimonials', 'TestimonialController');
+    Route::resource('resource', 'ResourceController');
     //Ck editor image upload
     Route::post('ckeditor/image_upload', 'CKEditorController@upload')->name('upload');
 
