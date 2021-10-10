@@ -25,7 +25,7 @@
                     <?php echo $__env->make('inc.alerts', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                 </div>
                 <div class="col-lg-8">
-                    <form class="form-contact contact_form" action="<?php echo e(route('submit.contact')); ?>" method="post" novalidate="novalidate">
+                    <form class="form-contact contact_form" action="<?php echo e(route('submit.contact')); ?>" method="post">
                         <?php echo csrf_field(); ?>
                         <div class="row">
                             
@@ -45,6 +45,12 @@
                                 <div class="form-group">
                                     <label for="">Message</label>
                                     <textarea required class="form-control w-100" name="message" id="message" cols="30" rows="5" value="<?php echo e(old('message')); ?>" placeholder=" Enter Message"><?php echo e(old('message')); ?></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for=""><?php echo e(getCaptchaQuestion()); ?></label>
+                                    <input class="form-control w-100" name="_answer" type="number" required>
                                 </div>
                             </div>
                         </div>

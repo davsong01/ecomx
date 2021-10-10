@@ -24,21 +24,22 @@
                                             <th>Phone</th>
                                             <th>Email</th>
                                             <th>Product</th>
+                                            <th>Date Created</th>
                                             <th>Date Approved</th>
                                             <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($requests as $request)
-                                        @if(isset($request->user))
+                                        @foreach($requests->sortByDESC('created_at') as $request)
                                         <tr> 
-                                            <td>{{ $request->user->name }} </td>
-                                            <td>{{ $request->user->phone }} </td>
-                                            <td>{{ $request->user->email }} </td>
-                                            <td>{{ $request->product->title }} </td>
+                                            <td>{{ $request->user->name ?? 'N/A' }} </td>
+                                            <td>{{ $request->user->phone ?? 'N/A' }} </td>
+                                            <td>{{ $request->user->email ?? 'N/A' }} </td>
+                                            <td>{{ $request->product->title ?? 'N/A' }} </td>
+                                            <td>{{ $request->created_at->format('Y-m-d') }} </td>
                                             <td>{{ $request->approved_at }} </td>
-                                            <td>{{ $request->status == 1 ? 'Approved' : 'Pending'}} </td>
+                                            <td>{{ $request->status == 1 ? 'Approved' : 'Pending' }} </td>
                                             <td style="padding-left: 5px;padding-right: 5px; ">
                                                 @if($request->status == 0)
                                                 <div class="button-group">
@@ -66,7 +67,7 @@
                                              
                                             </td>
                                         </tr>
-                                        @endif
+                                        
                                         @endforeach
                                     </tbody>
                                     

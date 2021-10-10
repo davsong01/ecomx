@@ -91,6 +91,15 @@
                                     </select>
                                 </fieldset>
                                 <fieldset class="form-group">
+                                    <label for="viewBestSelling">Can plan view Best selling products</label>
+                                    <select class="form-control" name="viewBestSelling" id="viewBestSelling" required>
+                                        <option value="">--Select option</option>
+                                        <option value="1" {{ old('viewBestSelling') == 1 ? 'selected' : ''}}>Yes</option>
+                                        <option value="0" {{ old('viewBestSelling') == 0 ? 'selected' : ''}}>No</option>
+                                        
+                                    </select>
+                                </fieldset>
+                                <fieldset class="form-group">
                                     <label for="status">Plan Status</label>
                                     <select class="form-control" name="status" id="status" required>
                                         <option value="">--Select option--</option>
@@ -98,7 +107,7 @@
                                         <option value="1" {{ old('status') == 1 ? 'selected' : ''}}>Published</option>
                                     </select>
                                 </fieldset>
-                                <button class="btn btn-primary" style="width:100%" type="submit">Create</button>
+                                <button class="btn btn-primary p-1" style="width:100%" type="submit">Create</button>
                                 </form>
                             </div>
                         </div>

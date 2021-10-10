@@ -12,7 +12,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">All Subscribers</h4>
-                        <a href="{{ route('users.create') }}" class="btn btn-primary mt-1">Add new subscriber</a>
+                        <a href="{{ route('users.create') }}" class="btn btn-primary p-1">Add new subscriber</a>
                         @include('inc.alerts')
                         
                     </div>
@@ -42,8 +42,14 @@
                                             <td>{{ isset($user->upline)? $user->upline->name : 'N/A' }} </td>
                                             <td>&#8358;{{ $user->referral_bonus }} </td>
                                             <td>@if(isset($user->plan))
-                                                {{ $user->plan->title }} <br>
-                                            <small><span style="color:green">Start: {{ $user->plan_start}} <br> End: {{ $user->plan_expiry }} </span></small></td>
+                                                {{ $user->plan->title }} 
+                                                @if($user->plan_expiry < now())
+                                               <i data-toggle="tooltip" data-placement="top" title="Plan has expired" style="color: red;" class="fa fa-info-circle"></i>
+                                                @endif
+                                                <br>
+                                                <small><span style="color:green">Start: {{ isset($user->plan_start) ?\Illuminate\Support\Carbon::parse($user->plan_start) : $user->plan_start }} </span> 
+                                                <br><span style="color:red">End: {{ isset($user->plan_expiry) ?\Illuminate\Support\Carbon::parse($user->plan_expiry) : $user->plan_expiry}} </span></small>
+                                            </td>
                                             @else N/A
                                             @endif
                                             <td style="padding-left: 5px;padding-right: 5px; ">
@@ -57,7 +63,7 @@
                                                 <div class="button-group">
                                                     <a class="actions" data-toggle="tooltip" data-placement="top" title="Switch To" href="{{ route('switchuser', $user->id) }}"> <i style="padding: 9px;
                                                         border: 1px solid;
-                                                        border-radius: 4px !important;" class="fa fa-unlock"></i></
+                                                        border-radius: 4px !important;" class="fa fa-unlock"></i>
                                                     </a>
                                                 </div>
                                                 <div class="button-group">

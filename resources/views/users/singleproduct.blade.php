@@ -134,24 +134,13 @@
 
         <div class="row">
             @if($isProductHasSalesPage > 0)
-                <button class="accordion">Salespage</button>
+                <button class="accordion">Salespage </button>
                
                 <div class="panel ck-content">
                     @if(auth()->user()->plan->viewCreatives == 1)
                         <p class="details">
                             <div class="count mb-10">
-                                @if($hasPreviouslyRequested >= 31)
-                                    @if(!is_null($requestedForCurrentProduct) && $requestedForCurrentProduct->status == 0)
-                                        <div class="col-12">
-                                            <p class="view-btn1" style="padding: 20px;
-                                            text-align: center;background: #06a4ad; color: white;" disabed>Product's salespage requested, awaiting approval</p>
-                                        </div>
-                                    @endif
-                                    @if(!is_null($requestedForCurrentProduct) && $requestedForCurrentProduct->status == 1)
-                                        SalesPage demo: <a class="btn view-btn1" style="background: #06a4ad; color: white;" href="{{ route('downloadsalespagefile', $salespage_file) }}"> <i class="fa fa-download"></i> Download file</a><br><br>
-                                    @endif
-                                    
-                                    @if(is_null($requestedForCurrentProduct))
+                                @if($hasRequestedThisMonth < auth()->user()->salespage_limit )
                                     <span>
                                         <form action="{{ route('salespages.submit')}}" method="POST" onsubmit="return confirm('You are about to request for salespage for: {{ $product->title }}');">
                                             @csrf
@@ -159,13 +148,11 @@
                                             <button class="btn view-btn1" style="background: #06a4ad; color: white;">Request this product's salespage </button>
                                         </form>
                                     </span>
-                                    @endif
-
                                 @else
-                                <span>
-                                    <button class="btn view-btn1" style="background: #06a4ad; color: white;" onclick="alert('You can only make 1 salespage request per month, contact us if you need more');">Request this product's salespage</button>
-                                    </form>
-                                </span>
+                                    <span>
+                                        <button class="btn view-btn1" style="background: #06a4ad; color: white;" onclick="alert('You have exceeded the number of salespage request per month, contact us if you need more');">Request this product's salespage</button>
+                                        </form>
+                                    </span>
                                 @endif
                               
                             </div> 
@@ -207,6 +194,7 @@
                     </p>
                 @endif
             </div>
+           
             @if(isset($upsell_array) && $upsell_array != null)
             <button class="accordion">Upsells</button>
             <div class="panel">
@@ -215,24 +203,23 @@
                     
                     <div class="row">
                         @foreach($upsell_array as $upsell)
-                        <div class="col-md-3 col-sm-6">
-                            <div class="product-grid">
-                                <div class="product-image">
-                                    <a href="{{ route('single.upsell', $upsell->slug) }}">
-                                        <img class="pic-1" src="{{route('get.upsellfile', $upsell->main_image) }}">
-                                        <img class="pic-2" src="{{route('get.upsellfile', $upsell->main_image) }}">
-                                    </a>
-                                   
-                                    <a class="add-to-cart" href="{{ route('single.upsell', $upsell->slug) }}">View</a>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="title"><a href="{{ route('single.upsell', $upsell->slug) }}">{{ $upsell->name }}</a></h3>
-                                    <span class="price">&#8358;{{ number_format($upsell->price, 2) }}</span>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="product-grid">
+                                    <div class="product-image">
+                                        <a href="{{ route('single.upsell', $upsell->slug) }}">
+                                            <img class="pic-1" src="{{route('get.upsellfile', $upsell->main_image) }}">
+                                            <img class="pic-2" src="{{route('get.upsellfile', $upsell->main_image) }}">
+                                        </a>
+                                    
+                                        <a class="add-to-cart" href="{{ route('single.upsell', $upsell->slug) }}">View</a>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="title"><a href="{{ route('single.upsell', $upsell->slug) }}">{{ $upsell->name }}</a></h3>
+                                        <span class="price">&#8358;{{ number_format($upsell->price, 2) }}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         @endforeach
-                        
                     </div>
                     <div class="row">
                         Watch how to Create your own Upsell Product 
@@ -251,6 +238,7 @@
                 
                 </div>
             @endif
+            
             <script>
                 var acc = document.getElementsByClassName("accordion");
                 var i;

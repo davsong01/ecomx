@@ -44,6 +44,12 @@
     <script src="<?php echo e(asset('app-assets/js/scripts/pages/dashboard-ecommerce.js')); ?>"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="<?php echo e(asset('app-assets/js/scripts/datatables/datatable.js')); ?>"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
+    
     
     <!-- END: Page JS-->
     <!-- END: Footer--><?php /**PATH C:\xampp\htdocs\Laravel Projects\EcomX\resources\views/inc/admin/footer.blade.php ENDPATH**/ ?>

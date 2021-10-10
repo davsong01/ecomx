@@ -1,3 +1,6 @@
+<?php $__env->startSection('extra-css'); ?>
+<?php echo $__env->make('inc.welcome_extra_styles', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopSection(); ?>
 <?php $__env->startSection('slider'); ?>
     <div class="slider-area hero-overly">
         <div class="single-slider hero-overly  slider-height d-flex align-items-center" style="min-height:600px !important">
@@ -235,7 +238,7 @@
     </div>
 </div>
 
-<!-- Testimonial End -->
+<!-- Plans End -->
 <div class="testimonial-area testimonial-padding">
     <div class="container">
         <div class="row">
@@ -249,11 +252,10 @@
                 </div> 
             </div>
         </div>
-       
         <div class="row">
             <!-- Section Tittle -->
             <?php $__currentLoopData = $plans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $plan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <div class="col-md-4 col-sm-6">
+            <div class="col-md-4 col-sm-6 mb-2">
                 <div class="pricingTable">
                     <div class="pricingTable-header">
                         <h5><a href="#" style="color:white"><?php echo e($plan->title); ?></a></h5>
@@ -278,8 +280,25 @@
             </div>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
+
+        <!--Mentions start-->
+        <div class="row pb-2" style="background: white; !important">
+            <div class="col-lg-12">
+                <div class="section-tittle text-center" style="margin-top: 22px; margin-bottom: 10px;">
+                    <span>Media Mentions</span>
+                </div> 
+                <section class="customer-logos slider">
+                    <div class="slide"><a target="_blank" href="https://www.vanguardngr.com/2021/09/how-ecomx-is-tackling-unemployment-among-youths/"> <img src="<?php echo e(asset('images/site/vanguard.png')); ?>"></a></div>
+                    <div class="slide"><a target="_blank" href="https://smedigest.com.ng/you-can-now-start-your-mini-ecom-business-with-almost-zero-budget-ecomx.html"><img src="<?php echo e(asset('images/site/smedigest.png')); ?>"></a></div>
+                    <div class="slide"><a target="_blank" href="https://www.thisdaylive.com/index.php/2021/09/24/ecomx-tackles-unemployment-among-youths/"><img src="<?php echo e(asset('images/site/thisday.png')); ?>"></a></div>
+                    <div class="slide"><a target="_blank" href="https://thenewsguru.com/tech/how-ecomx-is-curbing-unemployment-among-youths-oyetunji/"><img src="<?php echo e(asset('images/site/thenewsguru.png')); ?>"></a></div>
+                    <div class="slide"><a target="_blank" href="https://championnews.com.ng/how-ecomx-is-tackling-unemployment-among-youths/"><img src="<?php echo e(asset('images/site/champions.png')); ?>"></a></div>
+                 </section>
+            </div>
+        </div>
     </div>
 </div>
+
 <?php if(count($testimonials) > 0): ?>
 <div class="testimonial-area testimonial-padding" style="background: #06a4ad;">
     <div class="container">
@@ -322,6 +341,7 @@
     </div>
 </div>
 <?php endif; ?>
+
 <?php if(count($ambassadors) > 0): ?>
 <div class="popular-location">
     <div class="container">
@@ -359,5 +379,4 @@
 <?php endif; ?>
 </div>
 <?php $__env->stopSection(); ?>
-
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\Laravel Projects\EcomX\resources\views/welcome.blade.php ENDPATH**/ ?>

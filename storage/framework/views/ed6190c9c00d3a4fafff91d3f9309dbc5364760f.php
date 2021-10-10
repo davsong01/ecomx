@@ -27,6 +27,7 @@
                 <li class=" nav-item <?php echo e(Request::is('products*') ? 'active' : ''); ?>"><a href="<?php echo e(route('products.index')); ?>"><i class="fa fa-shopping-cart"></i><span class="menu-title">Products</span></a>
                 </li>
                 <li class=" nav-item <?php echo e(Request::is('upsells*') ? 'active' : ''); ?>"><a href="<?php echo e(route('upsells.index')); ?>"><i class="bx bx-package"></i><span class="menu-title">Upsells</span></a>
+                <li class=" nav-item <?php echo e(Request::is('bestseller*') ? 'active' : ''); ?>"><a href="<?php echo e(route('bestseller.index')); ?>"><i class="fa fa-recycle"></i><span class="menu-title">Best Sellers</span></a>
                 </li>
                 <li class=" nav-item <?php echo e(Request::is('suggestion*') ? 'active' : ''); ?>"><a href="<?php echo e(route('suggestion.index')); ?>"><i class="bx bxs-file"></i><span class="menu-title">Suggested Products</span></a>
                 <li class=" nav-item <?php echo e(Request::is('resource*') ? 'active' : ''); ?>"><a href="<?php echo e(route('resource.index')); ?>"><i class="fa fa-video-camera"></i><span class="menu-title">Resources</span></a>

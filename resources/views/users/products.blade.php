@@ -16,6 +16,33 @@
 @endsection
 @section('inactive', 'Home')
 @section('active', 'Products')
+@section('extra-css')
+<style>
+    .best-seller img{
+        width: 100px !important;
+        height: 100px !important;
+        border-radius: 50% !important;
+        margin: auto;
+    }
+    .best-seller{
+        width: 100px !important;
+        height: 100px !important;
+        border-radius: 50% !important;
+        margin: auto;
+    }
+    .best-seller:hover{
+        width: 100px !important;
+        height: 100px !important;
+    }
+
+    .grid2:hover .product-image .pic-1 {
+        opacity: inherit !important;
+    }
+    
+
+</style>
+
+@endsection
 @section('main')
     
     <div class="listing-area pt-12 pb-12">
@@ -38,6 +65,8 @@
                     <!-- listing Details Stat-->
                     <div class="listing-details-area">
                         <div class="container">
+                           
+                           
                             <div class="row">
                                 @foreach($products as $product)
                                 <div class="col-md-3 col-sm-4">
@@ -94,6 +123,32 @@
                         </div>
                     </div>
                     <!--Pagination End  -->
+                     <!--Best sellers start--->
+                     @if(auth()->user()->plan->viewBestSelling == 1 && $bestsellers->count() > 1)
+                     <div class="row">
+                         <div class="col-lg-12">
+                             <div class="count mb-35">
+                                 <h4 style="text-align:center">Best selling products </h4>
+                                 @include('inc.alerts')
+                             </div>
+                         </div>
+                         @foreach($bestsellers as $bestseller)
+                         <div class="col-md-2 col-sm-6">
+                             <div class="product-grid grid2">
+                                 <div class="product-image best-seller">
+                                     <img class="pic-1" src="{{route('get.file', json_decode($bestseller->product['f_image'], true)[0]) }}">
+                                 </div>
+                                 <div class="product-content">
+                                     <small>{{  $bestseller->product['title'] }}</small> <br>
+                                     <small>&#8358;{{ number_format($bestseller->product['price'], 2) }}</small>
+                                 </div>
+                             </div>
+                         </div>
+                         @endforeach
+                     </div>
+                     <hr>
+                 @endif
+                 <!--Best sellers stop--->
                 </div>
             </div>
         </div>

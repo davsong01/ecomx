@@ -135,24 +135,13 @@
 
         <div class="row">
             <?php if($isProductHasSalesPage > 0): ?>
-                <button class="accordion">Salespage</button>
+                <button class="accordion">Salespage </button>
                
                 <div class="panel ck-content">
                     <?php if(auth()->user()->plan->viewCreatives == 1): ?>
                         <p class="details">
                             <div class="count mb-10">
-                                <?php if($hasPreviouslyRequested >= 31): ?>
-                                    <?php if(!is_null($requestedForCurrentProduct) && $requestedForCurrentProduct->status == 0): ?>
-                                        <div class="col-12">
-                                            <p class="view-btn1" style="padding: 20px;
-                                            text-align: center;background: #06a4ad; color: white;" disabed>Product's salespage requested, awaiting approval</p>
-                                        </div>
-                                    <?php endif; ?>
-                                    <?php if(!is_null($requestedForCurrentProduct) && $requestedForCurrentProduct->status == 1): ?>
-                                        SalesPage demo: <a class="btn view-btn1" style="background: #06a4ad; color: white;" href="<?php echo e(route('downloadsalespagefile', $salespage_file)); ?>"> <i class="fa fa-download"></i> Download file</a><br><br>
-                                    <?php endif; ?>
-                                    
-                                    <?php if(is_null($requestedForCurrentProduct)): ?>
+                                <?php if($hasRequestedThisMonth < auth()->user()->salespage_limit ): ?>
                                     <span>
                                         <form action="<?php echo e(route('salespages.submit')); ?>" method="POST" onsubmit="return confirm('You are about to request for salespage for: <?php echo e($product->title); ?>');">
                                             <?php echo csrf_field(); ?>
@@ -160,13 +149,11 @@
                                             <button class="btn view-btn1" style="background: #06a4ad; color: white;">Request this product's salespage </button>
                                         </form>
                                     </span>
-                                    <?php endif; ?>
-
                                 <?php else: ?>
-                                <span>
-                                    <button class="btn view-btn1" style="background: #06a4ad; color: white;" onclick="alert('You can only make 1 salespage request per month, contact us if you need more');">Request this product's salespage</button>
-                                    </form>
-                                </span>
+                                    <span>
+                                        <button class="btn view-btn1" style="background: #06a4ad; color: white;" onclick="alert('You have exceeded the number of salespage request per month, contact us if you need more');">Request this product's salespage</button>
+                                        </form>
+                                    </span>
                                 <?php endif; ?>
                               
                             </div> 
@@ -211,6 +198,7 @@
                     </p>
                 <?php endif; ?>
             </div>
+           
             <?php if(isset($upsell_array) && $upsell_array != null): ?>
             <button class="accordion">Upsells</button>
             <div class="panel">
@@ -219,24 +207,23 @@
                     
                     <div class="row">
                         <?php $__currentLoopData = $upsell_array; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $upsell): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="product-grid">
-                                <div class="product-image">
-                                    <a href="<?php echo e(route('single.upsell', $upsell->slug)); ?>">
-                                        <img class="pic-1" src="<?php echo e(route('get.upsellfile', $upsell->main_image)); ?>">
-                                        <img class="pic-2" src="<?php echo e(route('get.upsellfile', $upsell->main_image)); ?>">
-                                    </a>
-                                   
-                                    <a class="add-to-cart" href="<?php echo e(route('single.upsell', $upsell->slug)); ?>">View</a>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="title"><a href="<?php echo e(route('single.upsell', $upsell->slug)); ?>"><?php echo e($upsell->name); ?></a></h3>
-                                    <span class="price">&#8358;<?php echo e(number_format($upsell->price, 2)); ?></span>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="product-grid">
+                                    <div class="product-image">
+                                        <a href="<?php echo e(route('single.upsell', $upsell->slug)); ?>">
+                                            <img class="pic-1" src="<?php echo e(route('get.upsellfile', $upsell->main_image)); ?>">
+                                            <img class="pic-2" src="<?php echo e(route('get.upsellfile', $upsell->main_image)); ?>">
+                                        </a>
+                                    
+                                        <a class="add-to-cart" href="<?php echo e(route('single.upsell', $upsell->slug)); ?>">View</a>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="title"><a href="<?php echo e(route('single.upsell', $upsell->slug)); ?>"><?php echo e($upsell->name); ?></a></h3>
+                                        <span class="price">&#8358;<?php echo e(number_format($upsell->price, 2)); ?></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        
                     </div>
                     <div class="row">
                         Watch how to Create your own Upsell Product 
@@ -256,6 +243,7 @@
                 
                 </div>
             <?php endif; ?>
+            
             <script>
                 var acc = document.getElementsByClassName("accordion");
                 var i;

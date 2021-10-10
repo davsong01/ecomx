@@ -47,8 +47,8 @@ class User extends Authenticatable
         return $this->hasMany(Payout::class);
     }
 
-    public function salespage(){
-        return $this->hasOne(Salespage::class);
+    public function salespages(){
+        return $this->hasMany(Salespage::class);
     }
 
     public function transactions(){

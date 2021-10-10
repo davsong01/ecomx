@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Edit {{ $user->name }}r</h4>
+                        <h4 class="card-title">Edit {{ $user->name }}</h4>
                         @include('inc.alerts')
                     </div>
                     <div class="card-content">
@@ -73,7 +73,7 @@
                                 </fieldset>
                                 
                                 <fieldset class="form-group">
-                                    <label for="validity">Plan(Optional)</label>
+                                    <label for="plan_id">Plan(Optional)</label>
                                     <select class="form-control" name="plan_id" id="plan_id" >
                                         <option value="">Select Plan</option>
                                         @foreach($plans as $plan)
@@ -88,7 +88,12 @@
                                     </select>
                                 </fieldset>
                                 <fieldset class="form-group">
-                                    <label for="validity">Validity</label>
+                                    <label for="salespage_limit">Salespage monthly limit </label>
+                                    <input class="form-control" type="number" name="salespage_limit" id="salespage_limit" value="{{ old('salespage_limit') ?? $user->salespage_limit }}">
+                                   
+                                </fieldset>
+                                <fieldset class="form-group">
+                                    <label for="validity">Validity </label>
                                     <select class="form-control" name="validity" id="validity" >
                                         <option value="1" {{ ($user->validity >= 1 && $user->validity < 3) ? 'selected' : ''}}>1 month</option>
                                         <option value="3" {{ ($user->validity >= 3 && $user->validity < 6) ? 'selected' : ''}}>3 months</option>
@@ -97,16 +102,15 @@
                                     </select>
                                 </fieldset>
                                 <fieldset class="form-group">
-                                    <label for="plan_start">Date Paid(Optional): {{ $user->plan_start }}</label>
-                                    <input type="date" class="form-control" id="plan_start" name="plan_start" value="{{ old('plan_start') ??   $user->plan_start }}" placeholder="Enter Date Paid">
+                                    <label for="plan_start">Date Paid (Optional)</label>
+                                    <input required type="date" class="form-control" id="plan_start" name="plan_start" value="{{ old('plan_start') ??  \Illuminate\Support\Carbon::parse($user->plan_start)->format('Y-m-d')  }}" placeholder="Enter Date Paid">
                                 </fieldset>
                                 <fieldset class="form-group">
-                                    <label for="plan_expiry">Plan Expiry(Optional): {{ $user->plan_expiry }}</label>
-                                    <input type="date" class="form-control" id="plan_expiry" name="plan_expiry" value="{{ old('plan_expiry') }}" placeholder="Enter Expiry date">
+                                    <label for="plan_expiry">Plan Expiry (Optional)</label>
+                                    <input required type="date" class="form-control" id="plan_expiry" name="plan_expiry" value="{{ old('plan_expiry') ?? \Illuminate\Support\Carbon::parse($user->plan_expiry)->format('Y-m-d')  }}" placeholder="Enter Expiry date">
                                 </fieldset>
                                 
-                                
-                                <button class="btn btn-primary" style="width:100%" type="submit">Create</button>
+                                <button class="btn btn-primary p-1" style="width:100%" type="submit">Create</button>
                                 </form>
                             </div>
                         </div>

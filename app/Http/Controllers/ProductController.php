@@ -26,14 +26,11 @@ class ProductController extends Controller
         $products = Product::with('category')->get();
         $no = 1;
         foreach($products as $product){
-        
             $product['upsell_products_count'] = count(json_decode($product->upsell_products));
-        
         }
 
         return view('admin.products.index', compact('products', 'no'));
     }
-
 
     public function create()
     {
@@ -61,7 +58,6 @@ class ProductController extends Controller
             'category' => 'required',
             'status' => 'required|numeric',
             'salespage_file' => 'nullable|max:1024',
-
         ]);  
         
         //handle salespage file

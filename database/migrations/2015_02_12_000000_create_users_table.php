@@ -31,6 +31,7 @@ class CreateUsersTable extends Migration
             $table->string('bank_name')->nullable();
             $table->string('account_name')->nullable();
             $table->string('account_number')->nullable();
+            $table->string('salespage_limit')->default(1);
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

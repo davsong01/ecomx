@@ -23,6 +23,7 @@ class CreatePlansTable extends Migration
             $table->integer('viewProducts')->default(1);//1: Yes; 0:No 
             $table->integer('viewUpsells');//1: Yes; 0:No 
             $table->integer('viewCreatives');//1: Yes; 0:No 
+            $table->integer('viewBestSelling');//1: Yes; 0:No 
 
             $table->integer('status')->default(0);//0: Draft; 1:publishd
 

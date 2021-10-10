@@ -27,6 +27,7 @@
                 <li class=" nav-item {{ Request::is('products*') ? 'active' : '' }}"><a href="{{ route('products.index') }}"><i class="fa fa-shopping-cart"></i><span class="menu-title">Products</span></a>
                 </li>
                 <li class=" nav-item {{ Request::is('upsells*') ? 'active' : '' }}"><a href="{{ route('upsells.index') }}"><i class="bx bx-package"></i><span class="menu-title">Upsells</span></a>
+                <li class=" nav-item {{ Request::is('bestseller*') ? 'active' : '' }}"><a href="{{ route('bestseller.index') }}"><i class="fa fa-recycle"></i><span class="menu-title">Best Sellers</span></a>
                 </li>
                 <li class=" nav-item {{ Request::is('suggestion*') ? 'active' : '' }}"><a href="{{ route('suggestion.index') }}"><i class="bx bxs-file"></i><span class="menu-title">Suggested Products</span></a>
                 <li class=" nav-item {{ Request::is('resource*') ? 'active' : '' }}"><a href="{{ route('resource.index') }}"><i class="fa fa-video-camera"></i><span class="menu-title">Resources</span></a>

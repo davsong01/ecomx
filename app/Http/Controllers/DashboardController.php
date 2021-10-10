@@ -10,6 +10,7 @@ use App\Category;
 use App\Settings;
 use App\Salespage;
 use Carbon\Carbon;
+use App\BestSeller;
 use App\Mail\ContactEmail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -47,7 +48,8 @@ class DashboardController extends Controller
             }])->whereStatus(1)->get();
 
             $products = Product::with('category')->whereStatus(1)->simplePaginate(50);
-
+            $bestsellers = BestSeller::with('product')->where('order', '<>', null)->orderBy('order', 'ASC')->get();
+            
             foreach($products as $product){
                if($product->f_image !== null){
                     $product['main_image'] = json_decode($product->f_image, true)[0];
@@ -55,8 +57,8 @@ class DashboardController extends Controller
                     $product['main_image'] = pulic_path().'/images/site/comming-soon.jpg';
             }    
            }
-           
-            return view('users.products', compact('categories', 'products'));
+   
+            return view('users.products', compact('categories', 'products', 'bestsellers'));
         
         }else return abort(404);
     }
@@ -93,7 +95,9 @@ class DashboardController extends Controller
         
         $salespage_file = ltrim($product->salespage_file, 'salespage_files/');
         
+        // $upsells = json_decode($product->upsell_products);
         $upsells = json_decode($product->upsell_products);
+      
         $product['main_image'] = json_decode($product->f_image, true)[0];
         $data_slide = 0;
         $upsell_array = array();
@@ -112,15 +116,24 @@ class DashboardController extends Controller
                  $u['main_image'] = json_decode($u->f_images, true)[0];
             }
         }
-    
-        $approved = Carbon::parse(auth()->user()->salespage->whereUserId(auth()->user()->id)->first()->created_at ?? null);
- 
-        $hasPreviouslyRequested = Carbon::now()->diffInDays($approved); 
+        
+        if(!empty(auth()->user()->salespages)){
 
+            $hasRequestedThisMonth = auth()->user()->salespages->whereBetween('created_at', [Carbon::now()->subMonth(1), Carbon::now()])->count();
+
+        }else $hasRequestedThisMonth = 0; 
+       
+        // dd($hasPreviouslyRequested);
         $isProductHasSalesPage = empty($product->salespage_link)  && empty($product->salespage_file) ? 0 : 1;
-        $requestedForCurrentProduct = auth()->user()->salespage->whereProductId($product->id)->whereUserId(auth()->user()->id)->first();
- 
-        return view('users.singleproduct', compact('hasPreviouslyRequested', 'isProductHasSalesPage', 'requestedForCurrentProduct', 'product', 'salespage_file', 'upsell_array', 'data_slide'));
+        $requestedForCurrentProduct = auth()->user()->salespages->where('product_id', $product->id)->first();
+       
+        if (isset($requestedForCurrentProduct) && $requestedForCurrentProduct->count() > 0){
+           
+            return view('users.singleproduct2', compact('isProductHasSalesPage', 'requestedForCurrentProduct', 'product', 'salespage_file', 'upsell_array', 'data_slide'));
+        }
+      
+        return view('users.singleproduct', compact('isProductHasSalesPage', 'hasRequestedThisMonth', 'product', 'salespage_file', 'upsell_array', 'data_slide'));
+        
     }
 
     public function singleCategory($slug){
@@ -184,6 +197,7 @@ class DashboardController extends Controller
     public function submitContact(Request $request){
         
         $data = $this->validate($request, [
+            '_answer'=>'required|simple_captcha',
             'name' => 'required',
             'email' => 'required|email',
             'message' => 'required'

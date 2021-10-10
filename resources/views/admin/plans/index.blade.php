@@ -43,7 +43,7 @@
                                                 <div class="button-group">
                                                     <a class="actions" data-toggle="tooltip" title="View/Edit upsell" href="{{ route('plans.edit', $plan->id) }}"> <i style="padding: 9px;
                                                         border: 1px solid;
-                                                        border-radius: 4px !important;" class="bx bxs-edit"></i></
+                                                        border-radius: 4px !important;" class="bx bxs-edit"></i>
                                                     </a>
                                                 </div>
                                                 <div class="button-group">

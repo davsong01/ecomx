@@ -15,6 +15,33 @@
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('inactive', 'Home'); ?>
 <?php $__env->startSection('active', 'Products'); ?>
+<?php $__env->startSection('extra-css'); ?>
+<style>
+    .best-seller img{
+        width: 100px !important;
+        height: 100px !important;
+        border-radius: 50% !important;
+        margin: auto;
+    }
+    .best-seller{
+        width: 100px !important;
+        height: 100px !important;
+        border-radius: 50% !important;
+        margin: auto;
+    }
+    .best-seller:hover{
+        width: 100px !important;
+        height: 100px !important;
+    }
+
+    .grid2:hover .product-image .pic-1 {
+        opacity: inherit !important;
+    }
+    
+
+</style>
+
+<?php $__env->stopSection(); ?>
 <?php $__env->startSection('main'); ?>
     
     <div class="listing-area pt-12 pb-12">
@@ -37,6 +64,8 @@
                     <!-- listing Details Stat-->
                     <div class="listing-details-area">
                         <div class="container">
+                           
+                           
                             <div class="row">
                                 <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <div class="col-md-3 col-sm-4">
@@ -94,6 +123,32 @@
                         </div>
                     </div>
                     <!--Pagination End  -->
+                     <!--Best sellers start--->
+                     <?php if(auth()->user()->plan->viewBestSelling == 1 && $bestsellers->count() > 1): ?>
+                     <div class="row">
+                         <div class="col-lg-12">
+                             <div class="count mb-35">
+                                 <h4 style="text-align:center">Best selling products </h4>
+                                 <?php echo $__env->make('inc.alerts', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                             </div>
+                         </div>
+                         <?php $__currentLoopData = $bestsellers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bestseller): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                         <div class="col-md-2 col-sm-6">
+                             <div class="product-grid grid2">
+                                 <div class="product-image best-seller">
+                                     <img class="pic-1" src="<?php echo e(route('get.file', json_decode($bestseller->product['f_image'], true)[0])); ?>">
+                                 </div>
+                                 <div class="product-content">
+                                     <small><?php echo e($bestseller->product['title']); ?></small> <br>
+                                     <small>&#8358;<?php echo e(number_format($bestseller->product['price'], 2)); ?></small>
+                                 </div>
+                             </div>
+                         </div>
+                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                     </div>
+                     <hr>
+                 <?php endif; ?>
+                 <!--Best sellers stop--->
                 </div>
             </div>
         </div>

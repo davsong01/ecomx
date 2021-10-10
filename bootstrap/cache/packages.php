@@ -13,6 +13,13 @@
       0 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     ),
   ),
+  'haruncpi/laravel-simple-captcha' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Haruncpi\\LaravelSimpleCaptcha\\ServiceProvider',
+    ),
+  ),
   'intervention/image' => 
   array (
     'providers' => 

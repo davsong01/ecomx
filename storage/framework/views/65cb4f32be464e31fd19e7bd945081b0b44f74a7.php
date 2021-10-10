@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">All Subscribers</h4>
-                        <a href="<?php echo e(route('users.create')); ?>" class="btn btn-primary mt-1">Add new subscriber</a>
+                        <a href="<?php echo e(route('users.create')); ?>" class="btn btn-primary p-1">Add new subscriber</a>
                         <?php echo $__env->make('inc.alerts', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                         
                     </div>
@@ -41,8 +41,14 @@
                                             <td><?php echo e(isset($user->upline)? $user->upline->name : 'N/A'); ?> </td>
                                             <td>&#8358;<?php echo e($user->referral_bonus); ?> </td>
                                             <td><?php if(isset($user->plan)): ?>
-                                                <?php echo e($user->plan->title); ?> <br>
-                                            <small><span style="color:green">Start: <?php echo e($user->plan_start); ?> <br> End: <?php echo e($user->plan_expiry); ?> </span></small></td>
+                                                <?php echo e($user->plan->title); ?> 
+                                                <?php if($user->plan_expiry < now()): ?>
+                                               <i data-toggle="tooltip" data-placement="top" title="Plan has expired" style="color: red;" class="fa fa-info-circle"></i>
+                                                <?php endif; ?>
+                                                <br>
+                                                <small><span style="color:green">Start: <?php echo e(isset($user->plan_start) ?\Illuminate\Support\Carbon::parse($user->plan_start) : $user->plan_start); ?> </span> 
+                                                <br><span style="color:red">End: <?php echo e(isset($user->plan_expiry) ?\Illuminate\Support\Carbon::parse($user->plan_expiry) : $user->plan_expiry); ?> </span></small>
+                                            </td>
                                             <?php else: ?> N/A
                                             <?php endif; ?>
                                             <td style="padding-left: 5px;padding-right: 5px; ">
@@ -56,7 +62,7 @@
                                                 <div class="button-group">
                                                     <a class="actions" data-toggle="tooltip" data-placement="top" title="Switch To" href="<?php echo e(route('switchuser', $user->id)); ?>"> <i style="padding: 9px;
                                                         border: 1px solid;
-                                                        border-radius: 4px !important;" class="fa fa-unlock"></i></
+                                                        border-radius: 4px !important;" class="fa fa-unlock"></i>
                                                     </a>
                                                 </div>
                                                 <div class="button-group">

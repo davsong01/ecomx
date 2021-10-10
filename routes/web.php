@@ -106,6 +106,7 @@ Route::middleware(['auth', 'isAdmin', 'SwitchUser'])->group(function(){
     Route::post('upsellfiledelete', 'UpsellController@deleteUpsellFile')->name('upsellfile.delete');
     
     Route::resource('upsells', 'UpsellController');
+    Route::resource('bestseller', 'BestSellerController');
     Route::post('postfilereplace', 'UpsellController@replaceUpsellFile')->name('upsellfile.replace');
     Route::resource('users', 'UserController');
     Route::resource('staff', 'StaffController');

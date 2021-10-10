@@ -90,7 +90,7 @@ class UserController extends Controller
     {
         $plans = Plan::whereStatus(1)->get();
         $users = User::whereLevel(1)->get();
-
+        
         return view('admin.users.edit', compact('user', 'users', 'plans'));
     }
 
@@ -100,8 +100,16 @@ class UserController extends Controller
         if($request['password']){
             $request['password'] = Hash::make($request['password']);
         }else $request['password'] = $user->password;
+      
+        if($request->plan_expiry != Carbon::parse($user->plan_expiry)->format('Y-m-d') ){
+            $request['plan_expiry'] = Carbon::parse($request->plan_expiry);
+        }
 
-            $user->update($request->all());
+        if($request->plan_start != Carbon::parse($user->plan_start)->format('Y-m-d') ){
+            $request['plan_start'] = Carbon::parse($request->plan_start);
+        }
+
+        $user->update($request->all());
 
         return back()->with('message', 'Update successful!');
 

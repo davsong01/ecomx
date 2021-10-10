@@ -5,6 +5,7 @@ namespace App;
 use App\Plan;
 use App\Category;
 use App\Salespage;
+use App\BestSeller;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -13,6 +14,10 @@ class Product extends Model
     
     public function category(){
         return $this->belongsToMany(Category::class);
+    }
+
+    public function bestseller(){
+        return $this->hasOne(BestSeller::class);
     }
 
     public function salespage(){

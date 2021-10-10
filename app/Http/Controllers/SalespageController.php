@@ -65,8 +65,8 @@ class SalespageController extends Controller
 
     public function showsalespage()
     {
-        $requests = Salespage::with('product')->get();
-        
+        $requests = Salespage::with('product')->orderBy('created_at', 'DESC')->get();
+
         return view('admin.salespagerequest.index', compact('requests'));
     }
 
@@ -81,18 +81,26 @@ class SalespageController extends Controller
     {
         if(auth()->user()->plan->viewCreatives == 1){
             //Check if user has requested for this salespage before
-            $all_requests = Salespage::whereUserId(auth()->user()->id)->whereProductId($request->pid)->whereStatus(0)->first();
-     
-            if($all_requests !== NULL){
+            $all_requests = auth()->user()->salespages->where('product_id', $request->pid);
+
+            if( $all_requests->count() > 0 ){
                 return back()->with('error', 'You have already requested for this product salespage');
             }
           
-            //Ensure last request was a month ago
-            $previously_approved = Salespage::whereUserId(auth()->user()->id)->where('created_at', '>=', Carbon::now()->subMonth())->first();
-
-            if($previously_approved != NULL && $previously_approved->count() > 0){
-                return back()->with('error', 'You can only request for one salespage per month, You can only make 1 salespage request per month, contact us to request more sales page.');
+            $hasRequestedThisMonth = auth()->user()->salespages->whereBetween('created_at', [Carbon::now()->subMonth(1), Carbon::now()])->count();
+            
+            // dd($hasRequestedThisMonth, auth()->user()->salespage_limit);
+            if( $hasRequestedThisMonth >= auth()->user()->salespage_limit ){
+                return back()->with('error', 'You have exhausted your salespage request for the month, contact us to request more sales page.');
+                
             }
+        
+            // //Ensure last request was a month ago
+            // $previously_approved = Salespage::whereUserId(auth()->user()->id)->where('created_at', '>=', Carbon::now()->subMonth())->first();
+
+            // if($previously_approved != NULL && $previously_approved->count() > 0){
+            //     return back()->with('error', 'You can only request for one salespage per month, You can only make 1 salespage request per month, contact us to request more sales page.');
+            // }
 
             $salespage = Salespage::create([
                 'user_id' => auth()->user()->id,
@@ -100,6 +108,9 @@ class SalespageController extends Controller
                 'status' => 0,
             ]);
             
+            auth()->user()->salespage_limit = auth()->user()->salespage_limit - 1;
+            auth()->user()->save();
+
             //Send email to admin
             $data['name'] = auth()->user()->name;
             $data['email'] = auth()->user()->email;
