@@ -37,6 +37,7 @@ class ProductController extends Controller
         $upsells = Upsell::whereStatus(1)->get();
     
         $categories = Category::whereStatus(1)->get();
+        
         $plans = Plan::whereStatus(1)->get();
        
         return view('admin.products.create', compact('upsells', 'categories', 'plans'));

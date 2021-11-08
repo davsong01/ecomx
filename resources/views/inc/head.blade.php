@@ -42,7 +42,7 @@
 
    
     @yield('extra-css')
-    <style>
+     <style>
        .accordion {
           background-color: #eee;
           color: #444;

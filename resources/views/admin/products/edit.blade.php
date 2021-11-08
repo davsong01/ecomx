@@ -146,7 +146,7 @@
                                     <fieldset class="form-group">
                                         <label for="status">Upsell Products 
                                         </label>
-                                        <select class="form-control js-example-basic-multiple" name="upsell_products[]" id="upsell_products" multiple="multiple" >
+                                        <select class="form-control select2 js-example-basic-multiple" name="upsell_products[]" id="upsell_products" multiple="multiple" >
                                             @foreach($upsells as $upsell)
                                             <option value="{{ $upsell->id }}" 
                                                 @foreach(json_decode($product->upsell_products, false) as $upproduct)
@@ -160,7 +160,7 @@
                                     
                                     <fieldset class="form-group">
                                         <label for="status">Category </label>
-                                        <select class="form-control js-example-basic-multiple" name="category[]" id="category" multiple="multiple" required>
+                                        <select class="form-control select2 js-example-basic-multiple" name="category[]" id="category" multiple="multiple" required>
                                             @foreach($categories as $category)
                                             <option value="{{ $category->id }}" 
                                                 @foreach($product->category as $cat)

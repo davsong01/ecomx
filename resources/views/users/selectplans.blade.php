@@ -27,6 +27,7 @@
                     <span>Choose plan</span>
                     <p>Hello {{ auth()->user()->username }}, thank you for registering, now you need to subsribe to a preferred plan to gain access to product details</p>
                     @include('inc.alerts')
+                    
                 </div>
             </div>
 

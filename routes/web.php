@@ -33,8 +33,6 @@ Route::get('/contact', 'HomeController@contact')->name('contact');
 Route::get('/about', 'HomeController@about')->name('about');
 Route::get('/faq', 'HomeController@faq')->name('faq');
 
-Route::get('/resources', 'ResourceController@getResources')->name('user.resources');
-
 Route::get('productimages/{filename}', function ($filename) {
     $realpath = base_path() . '/uploads/products'. '/' .$filename;
     return response()->download($realpath);
@@ -76,6 +74,7 @@ Route::middleware(['auth', 'SwitchUser'])->group(function(){
 });
 //Auth Users route
 Route::middleware(['auth', 'hasPlan', 'SwitchUser'])->group(function(){ 
+    Route::get('/resources', 'ResourceController@getResources')->name('user.resources');
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
     Route::get('/products/single/{slug}', 'DashboardController@singleProduct')->name('product.single');
     

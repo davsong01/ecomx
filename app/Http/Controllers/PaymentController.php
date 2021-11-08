@@ -6,7 +6,6 @@ namespace App\Http\Controllers;
 
 use App\Plan;
 use App\User;
-use Paystack;
 use Exception;
 use App\Settings;
 use Carbon\Carbon;
@@ -22,6 +21,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
+use Unicodeveloper\Paystack\Facades\Paystack;
 
 class PaymentController extends Controller
 
@@ -29,23 +29,89 @@ class PaymentController extends Controller
 
 	public function redirectToGateway(Request $request)
 	{
-		
 		$data = $this->validate($request, [
 			'orderID' => 'required|numeric',
   			'email' => 'required',
   			'amount' => 'required|numeric',
   			'quantity' => 'required|numeric'
 		]);
-			
-		//Validate Plan and Price
-		return Paystack::getAuthorizationUrl()->redirectNow();
-		try {
-			return Paystack::getAuthorizationUrl()->redirectNow();
-		} catch (\Exception $e) {
-			return Redirect::back()->with('error', $e);
-		}
+		
+		try{
+            return Paystack::getAuthorizationUrl()->redirectNow();
+        }catch(\Exception $e) {
+        	dd($e);
+        }
+
 	}
 
+	private function troubleshoot($request){
+		$url = "https://api.paystack.co/charge";
+
+		$fields = [
+
+			'email' => "customer@email.com",
+
+			'amount' => "10000",
+
+			"metadata" => [
+
+			],
+
+			"custom_fields" => [
+
+				[
+					"value" => "makurdi",
+
+				"display_name" => "Donation for",
+
+				"variable_name" => "donation_for"
+				]
+
+				],
+
+			"bank" => [
+				"code" => "057",
+				"account_number" => "0000000000"
+			],
+
+			"birthday" => "1995-12-23"
+
+		];
+
+		$fields_string = http_build_query($fields);
+
+		//open connection
+		$ch = curl_init();
+
+		//set the url, number of POST vars, POST data
+		curl_setopt($ch,CURLOPT_URL, $url);
+
+		curl_setopt($ch,CURLOPT_POST, true);
+
+		curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+
+			"Authorization: Bearer sk_test_9ef3c9b3235ec79555f13bae938717223d79e380",
+
+			"Cache-Control: no-cache",
+
+		));
+
+		
+
+		//So that curl_exec returns the contents of the cURL; rather than echoing it
+
+		curl_setopt($ch,CURLOPT_RETURNTRANSFER, true); 
+
+		
+
+		//execute post
+
+		$result = curl_exec($ch);
+
+		dd($result);
+	}
 	public function handleGatewayCallback()
 	{
 		$paymentDetails = Paystack::getPaymentData();

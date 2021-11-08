@@ -42,7 +42,7 @@
 
    
     <?php echo $__env->yieldContent('extra-css'); ?>
-    <style>
+     <style>
        .accordion {
           background-color: #eee;
           color: #444;

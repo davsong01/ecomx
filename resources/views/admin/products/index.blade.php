@@ -58,7 +58,7 @@
                                                     <form id="delete" style="float: left;" onsubmit="return confirm('Are you sure you want to delete forever?');" action="{{ route('products.destroy', $product->id) }}" method="POST" >
                                                         @csrf
                                                         @method('DELETE') 
-                                                        <button class="form-control deletebutton" type="submit"><i class="fa fa-trash" style="color: #950026;"></i></button>
+                                                        <button class="form-control delete-button" type="submit"><i class="fa fa-trash" style="color: #950026;"></i></button>
                                                     </form>  
                                                 </div>
                                                 <div class="button-group">

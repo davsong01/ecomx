@@ -44,7 +44,6 @@
 
 @endsection
 @section('main')
-    
     <div class="listing-area pt-12 pb-12">
         <div class="container">
             <div class="row">

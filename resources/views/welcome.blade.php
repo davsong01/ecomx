@@ -293,7 +293,10 @@
                     <div class="slide"><a target="_blank" href="https://smedigest.com.ng/you-can-now-start-your-mini-ecom-business-with-almost-zero-budget-ecomx.html"><img src="{{ asset('images/site/smedigest.png') }}"></a></div>
                     <div class="slide"><a target="_blank" href="https://www.thisdaylive.com/index.php/2021/09/24/ecomx-tackles-unemployment-among-youths/"><img src="{{ asset('images/site/thisday.png') }}"></a></div>
                     <div class="slide"><a target="_blank" href="https://thenewsguru.com/tech/how-ecomx-is-curbing-unemployment-among-youths-oyetunji/"><img src="{{ asset('images/site/thenewsguru.png') }}"></a></div>
+                    <div class="slide"><a target="_blank" href="https://guardian.ng/business-services/firm-tackles-youth-unemployment-with-digital-tool/"><img src="{{ asset('images/site/guardian.png') }}"></a></div>
                     <div class="slide"><a target="_blank" href="https://championnews.com.ng/how-ecomx-is-tackling-unemployment-among-youths/"><img src="{{ asset('images/site/champions.png') }}"></a></div>
+
+                    
                  </section>
             </div>
         </div>

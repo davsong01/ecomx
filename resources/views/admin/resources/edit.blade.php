@@ -36,8 +36,8 @@
                                     <fieldset class="form-group">
                                         <label for="public">Public? (Subscribed and Unsubscribed users can view public resources) | Optional</label>
                                         <select class="form-control" name="public" id="public">
-                                            <option value="1" {{ $resource->link == 1 ? 'selected' : ''}}>Yes</option>
-                                            <option value="0" {{ $resource->link == 0 ? 'selected' : ''}}>No</option>
+                                            <option value="1" {{ $resource->public == 1 ? 'selected' : ''}}>Yes</option>
+                                            <option value="0" {{ $resource->public == 0 ? 'selected' : ''}}>No</option>
                                         </select>
                                     </fieldset>
                                 

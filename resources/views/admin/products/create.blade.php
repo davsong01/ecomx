@@ -70,7 +70,7 @@
                                 </fieldset>
                                 <fieldset class="form-group">
                                     <label for="status">Upsells (Optional)</label>
-                                    <select class="form-control js-example-basic-multiple" name="upsell[]" id="upsell" multiple="multiple">
+                                    <select class="form-control select2 js-example-basic-multiple" name="upsell[]" id="upsell" multiple="multiple">
                                        
                                         @foreach($upsells as $upsell)
                                         <option value="{{ $upsell->id }}" {{ old('upsell') == $upsell->id ? 'selected' : ''}}>{{ $upsell->name }}</option>
@@ -80,7 +80,7 @@
 
                                 <fieldset class="form-group">
                                     <label for="status">Category</label>
-                                    <select class="form-control js-example-basic-multiple" name="category[]" id="category" multiple="multiple" required>
+                                    <select class="form-control select2 js-example-basic-multiple" name="category[]" id="category" multiple="multiple" required>
                                         @foreach($categories as $category)
                                         <option value="{{ $category->id }}" {{ old('category') == $category->id ? 'selected' : ''}}>{{ $category->title }}</option>
                                         @endforeach
@@ -109,6 +109,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script>                                         
     <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
         CKEDITOR.replace( 'summary-ckeditor', {
             filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
             filebrowserUploadMethod: 'form'
@@ -119,9 +122,7 @@
             filebrowserUploadMethod: 'form'
         });
         
-        $(document).ready(function() {
-            $('.js-example-basic-multiple').select2();
-        });
+        
         
     </script>
 @endsection

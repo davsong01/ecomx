@@ -1,4 +1,8 @@
 @extends('layouts.dashboard')
+@section('extra-css')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+@endsection
 @section('slider')
     <!-- Hero Start-->
     <div class="hero-area2  slider-height2 hero-overly2 d-flex align-items-center" style="min-height: 200px;  !important">
@@ -24,11 +28,10 @@
             <div class="col-12">
                 <!-- Section Tittle -->
                 <div class="section-tittle text-center">
-                    <span>Choose plan</span>
+                    <span>Checkout</span>
                     <p>You have selected the plan with the information below, click proceed to make payment for this plan or back to select another plan</p>
                     @include('inc.alerts')
                 </div>
-                
             </div>
           </div>
           <div class="row">
@@ -55,12 +58,47 @@
                 
                 <div class="card-body text-center"> 
                   <br>
-                  <button class="btn btn-outline-primary btn-lg" style="border-radius:30px; width:100%">Proceed to payment</button>
+                  <button class="btn btn-primary btn-lg" style="border-radius:30px; width:100%">Pay with Card</button>
                   <br>
                 </div>
+                <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-lg" style="border-radius:30px; width:100%; color:black">Pay with alternative payment</button>
                 
-              </div> 
-          </form>
+            </form>
+        </div> 
+        
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div section-tittle text-center>
+          <h5 style="line-height: 1.5;"><strong>Please make payment of &#8358;{{ $plan->amount }} into the account details below</strong><br>
+            <em>Bank: </em>Access (Diamond) <br>
+            <em>Account Name: </em>127 Resources <br>
+            <em>Account Number: </em>0081792189 <br><br>
+
+            After payment, kindly send the following details to <strong>+234 808 660 7905</strong> via WhatsApp <br><br>
+            1. Your Name <br>
+            2. Your Email <br>
+            3. Your Phone number <br>
+            4.  Amount Paid <br>
+            5. Screenshot of payment receipt <br>
+            6. <strong>{{ $plan->title }}</strong> plan
+          </h5>
+        </div>
+           
+        </div>
+       
+      </div>
+      
+    </div>
+  </div>
+  
           <div class="card-body text-center"> 
             <a style="color:red" href="{{ route('selectplans') }}">Take me back, I want to choose another plan</a>
           </div>

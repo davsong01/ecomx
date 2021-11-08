@@ -1,6 +1,6 @@
 
     <footer class="footer footer-static footer-light">
-            <p class="clearfix mb-0"><span class="float-left d-inline-block"></span><span class="float-right d-sm-inline-block d-none">2020 &copy; {{ config('app.name') }} | Built by <a class="text-uppercase" href="https://techdaves.com" target="_blank">Techdaves</a></span>
+            <p class="clearfix mb-0"><span class="float-left d-inline-block"></span><span class="float-right d-sm-inline-block d-none">{{ date('Y') }} &copy; {{ config('app.name') }} | Built by <a class="text-uppercase" href="https://techdaves.com" target="_blank">Techdaves</a></span>
                 <button class="btn btn-primary btn-icon scroll-top" type="button"><i class="bx bx-up-arrow-alt"></i></button>
             </p>
     </footer>
